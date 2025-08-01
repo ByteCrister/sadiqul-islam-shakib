@@ -19,7 +19,6 @@ import 'swiper/css/effect-coverflow'
 
 import { Project } from '@/utils/parameter.projects'
 
-// Animation variants
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -43,14 +42,12 @@ export default function ProjectHighlights({ projects }: ProjectHighlightsProps) 
 
   const swiperParams: SwiperProps = {
     modules: [Autoplay, Pagination, Navigation, EffectCoverflow],
-    spaceBetween: 24,
+    spaceBetween: 32,
     slidesPerView: 1,
     centeredSlides: true,
     loop: true,
     autoplay: { delay: 3000, disableOnInteraction: false },
-    pagination: {
-      clickable: true,
-    },
+    pagination: { clickable: true },
     navigation: {
       prevEl: prevRef.current!,
       nextEl: nextRef.current!,
@@ -68,8 +65,8 @@ export default function ProjectHighlights({ projects }: ProjectHighlightsProps) 
     coverflowEffect: {
       rotate: 0,
       stretch: 0,
-      depth: 120,
-      modifier: 1.5,
+      depth: 160,
+      modifier: 1.8,
       slideShadows: false,
     },
     breakpoints: {
@@ -77,7 +74,7 @@ export default function ProjectHighlights({ projects }: ProjectHighlightsProps) 
       768: { slidesPerView: 2 },
       1024: { slidesPerView: 3 },
     },
-    className: 'pb-14', // extra space for the dots
+    className: 'pb-16',
   }
 
   return (
@@ -95,48 +92,41 @@ export default function ProjectHighlights({ projects }: ProjectHighlightsProps) 
         Project Highlights
       </motion.h3>
 
-      {/* Custom Navigation Buttons */}
+      {/* Glassmorphic Navigation Buttons */}
       <button
         ref={prevRef}
-        className="swiper-button-prev-custom absolute z-10 left-2 top-1/2 -translate-y-1/2 bg-neutral-800 text-white p-2 rounded-full hover:scale-110 transition"
+        className="swiper-button-prev-custom absolute z-10 left-6 top-1/2 -translate-y-1/2 backdrop-blur-md bg-white/20 dark:bg-black/20 border border-white/30 dark:border-neutral-700 text-neutral-800 dark:text-neutral-100 p-3 rounded-full hover:scale-110 transition-all shadow-lg"
       >
-        <ChevronLeft className="w-5 h-5" />
+        <ChevronLeft className="w-6 h-6" />
       </button>
 
       <button
         ref={nextRef}
-        className="swiper-button-next-custom absolute z-10 right-2 top-1/2 -translate-y-1/2 bg-neutral-800 text-white p-2 rounded-full hover:scale-110 transition"
+        className="swiper-button-next-custom absolute z-10 right-6 top-1/2 -translate-y-1/2 backdrop-blur-md bg-white/20 dark:bg-black/20 border border-white/30 dark:border-neutral-700 text-neutral-800 dark:text-neutral-100 p-3 rounded-full hover:scale-110 transition-all shadow-lg"
       >
-        <ChevronRight className="w-5 h-5" />
+        <ChevronRight className="w-6 h-6" />
       </button>
 
       <Swiper {...swiperParams}>
         {projects.map((proj, idx) => (
-          <SwiperSlide key={proj.slug ?? idx} className="!max-w-xs">
+          <SwiperSlide key={proj.slug ?? idx} className="!max-w-sm px-2 pb-10">
             <motion.div
               variants={fadeUp}
               whileHover={{ scale: 1.03, y: -4 }}
-              className="block bg-white dark:bg-neutral-800 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
+              className="bg-white dark:bg-neutral-800 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
             >
-              <a
-                href={`/projects/${proj.slug}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <div className="relative w-full h-40 rounded-t-2xl overflow-hidden">
+              <a href={`/projects/${proj.slug}`} target="_blank" rel="noreferrer">
+                <div className="relative w-full h-52 rounded-t-2xl overflow-hidden">
                   <Image
-                    src={
-                      proj.thumbnail ||
-                      proj.images?.[0] ||
-                      '/placeholder.png'
-                    }
+                    src={proj.thumbnail || proj.images?.[0] || '/placeholder.png'}
                     alt={proj.title}
                     fill
+                    quality={85}
                     className="object-cover hover:scale-105 transition-transform duration-500"
                   />
                 </div>
 
-                <div className="p-5">
+                <div className="p-6">
                   <div className="flex items-center justify-between mb-3">
                     <h4 className="text-lg font-semibold text-neutral-800 dark:text-neutral-100">
                       {proj.title}
@@ -167,49 +157,41 @@ export default function ProjectHighlights({ projects }: ProjectHighlightsProps) 
         ))}
       </Swiper>
 
-      {/* Swiper pagination dots are rendered automatically here */}
       <style jsx>{`
-  :global(.swiper-pagination) {
-    bottom: 0 !important;
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    padding-top: 1rem;
-    z-index: 10;
-  }
+        :global(.swiper-pagination) {
+          bottom: 0 !important;
+          display: flex;
+          justify-content: center;
+          gap: 0.5rem;
+          padding-top: 1rem;
+          z-index: 10;
+        }
 
-  /* The "dots" now become sleek rounded rectangles */
-  :global(.swiper-pagination-bullet) {
-    width: 24px;          /* wider rectangle */
-    height: 8px;          /* short height for that sleek bar look */
-    background-color: #4b5563; /* gray-700 */
-    opacity: 0.5;
-    border-radius: 4px;   /* smooth corners */
-    transition: all 0.3s ease;
-    transform-origin: center;
-  }
+        :global(.swiper-pagination-bullet) {
+          width: 24px;
+          height: 8px;
+          background-color: #4b5563;
+          opacity: 0.5;
+          border-radius: 4px;
+          transition: all 0.3s ease;
+        }
 
-  /* Active bullet: wider and brighter with a subtle shadow */
-  :global(.swiper-pagination-bullet-active) {
-  width: 40px;
-  background-color: #374151; /* dark gray, not too black */
-  opacity: 1;
-  box-shadow: 0 0 8px rgba(55, 65, 81, 0.6); /* subtle glow matching the color */
-}
+        :global(.swiper-pagination-bullet-active) {
+          width: 40px;
+          background-color: #374151;
+          opacity: 1;
+          box-shadow: 0 0 8px rgba(55, 65, 81, 0.6);
+        }
 
+        :global(.dark .swiper-pagination-bullet) {
+          background-color: #6b7280;
+        }
 
-  /* Dark mode tweaks */
-  :global(.dark .swiper-pagination-bullet) {
-    background-color: #6b7280; /* gray-500 */
-  }
-
-  :global(.dark .swiper-pagination-bullet-active) {
-  background-color: #9ca3af; /* gray-400, lighter but soft */
-  box-shadow: 0 0 8px rgba(156, 163, 175, 0.6);
-}
-
-`}</style>
-
+        :global(.dark .swiper-pagination-bullet-active) {
+          background-color: #9ca3af;
+          box-shadow: 0 0 8px rgba(156, 163, 175, 0.6);
+        }
+      `}</style>
     </motion.div>
   )
 }

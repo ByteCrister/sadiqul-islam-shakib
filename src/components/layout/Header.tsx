@@ -7,8 +7,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Sun, Moon, Download, Menu, X } from 'lucide-react';
 import { Cursor, useTypewriter } from 'react-simple-typewriter';
 import { DownloadCvPath, navItems, NavWords } from '@/utils/parameter.header';
+import { usePathname } from 'next/navigation';
 
 export default function Header() {
+    const pathname = usePathname();
     const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
@@ -42,14 +44,22 @@ export default function Header() {
 
                 {/* Desktop Nav */}
                 <nav className="hidden md:flex items-center space-x-6">
-                    {navItems.map(({ label, href }) => (
-                        <Link key={href} href={href} className="relative group text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                            <motion.span whileHover={{ y: -2, transition: { type: 'spring', stiffness: 300 } }}>
-                                {label}
-                            </motion.span>
-                            <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary scale-x-0 origin-left group-hover:scale-x-100 transition-transform" />
-                        </Link>
-                    ))}
+                    {navItems.map(({ label, href }) => {
+                        const isActive = pathname === href;
+
+                        return (
+                            <Link key={href} href={href} className="relative group text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                                <motion.span whileHover={{ y: -2, transition: { type: 'spring', stiffness: 300 } }}>
+                                    {label}
+                                </motion.span>
+                                <span
+                                    className={`absolute bottom-0 left-0 right-0 h-[2px] bg-primary
+                                                transition-transform duration-300 ease-in-out
+                                                ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'} origin-left`}
+                                />
+                            </Link>
+                        )
+                    })}
 
                     <motion.a
                         href={DownloadCvPath}
