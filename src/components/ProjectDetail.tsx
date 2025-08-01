@@ -7,7 +7,6 @@ import { easeInOut, motion, Variants } from "framer-motion";
 import { Sparkles, TriangleAlert, BookOpen } from "lucide-react";
 import { JSX } from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 import { getRandomImage } from "@/utils/image";
 
 const fadeIn: Variants = {
@@ -22,11 +21,11 @@ const fadeIn: Variants = {
     },
 };
 
-const ProjectDetail = () => {
-    const params = useParams();
-    const slug = Array.isArray(params.slug)
-        ? params.slug[0]
-        : params.slug;
+const ProjectDetail = ({ slug }: { slug: string }) => {
+    // const params = useParams();
+    // const slug = Array.isArray(params.slug)
+    //     ? params.slug[0]
+    //     : params.slug;
 
     const project = slug ? getProjectBySlug(slug) : undefined;
 

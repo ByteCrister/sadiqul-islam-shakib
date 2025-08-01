@@ -40,7 +40,6 @@ export function generatePageMetadata({
             description,
             images: [ogImage],
         },
-        metadataBase: new URL(BASE_URL),
         alternates: { canonical: url },
     }
 }
