@@ -10,7 +10,7 @@ type PageSEO = {
 }
 
 const SITE_NAME = 'Sadiqul Islam Shakib'
-const BASE_URL = 'https://sadiqulislamshakib.vercel.app'
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL!
 const DEFAULT_OG_IMAGE = '/og-default.png'
 
 export function generatePageMetadata({

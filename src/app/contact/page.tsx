@@ -19,7 +19,7 @@ export const metadata: Metadata = {
       'Full-Stack Developer'
     ],
   }),
-  metadataBase: new URL('https://sadiqulislamshakib.vercel.app'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL??''),
 };
 
 export const viewport = {
