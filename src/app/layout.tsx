@@ -1,13 +1,14 @@
 import './globals.css';
 import { Metadata } from 'next'
 import { ThemeProvider } from 'next-themes';
-import React from 'react';
+import React, { Suspense } from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/effect-coverflow'
+import Loading3DText from '@/components/Loading3DText';
 
 
 export const metadata: Metadata = {
@@ -41,9 +42,11 @@ export default function RootLayout({
           enableSystem={true}
           disableTransitionOnChange={true}
         >
-          <Header />
-          <main className="container mx-auto px-4 py-8">{children}</main>
-          <Footer />
+          <Suspense fallback={<Loading3DText />}>
+            <Header />
+            <main className="container mx-auto px-4 py-8">{children}</main>
+            <Footer />
+          </Suspense>
         </ThemeProvider>
       </body>
     </html>
