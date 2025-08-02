@@ -18,33 +18,105 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: 'task-master',
-    title: 'Task Master',
+    slug: 'meeting-sync',
+    title: 'MeetingSync',
     description:
-      'A productivity app for managing tasks, featuring drag-and-drop Kanban boards, real-time sync, and intuitive gestures.',
-    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Socket.IO'],
-    thumbnail: '/images/meeting-sync.png',
+      `Meeting Sync is an intelligent meeting scheduling and video conferencing platform that combines real-time communication, automated scheduling, and AI-powered analytics to optimize meeting productivity. This document provides a comprehensive overview of the platform's architecture, core systems, and key capabilities.`,
+    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Shadcn UI', 'Axios API', 'Socket.IO', 'WebRTC', 'Redis Cache', 'Fuse.js', 'MongoDB', 'Mongoose'],
+    thumbnail: '/images/projects/meeting-sync/meeting-sync-1.png',
     images: [
-      'https://picsum.photos/300/200',
-      'https://picsum.photos/300/200',
-      'https://picsum.photos/300/200'
+      '/images/projects/meeting-sync/meeting-sync-1.png',
+      '/images/projects/meeting-sync/meeting-sync-2.png',
+      '/images/projects/meeting-sync/meeting-sync-3.png',
+      '/images/projects/meeting-sync/meeting-sync-4.png',
+      '/images/projects/meeting-sync/meeting-sync-5.png',
+      '/images/projects/meeting-sync/meeting-sync-6.png',
+      '/images/projects/meeting-sync/meeting-sync-7.png',
+      '/images/projects/meeting-sync/meeting-sync-8.png',
+      '/images/projects/meeting-sync/meeting-sync-9.png',
+      '/images/projects/meeting-sync/meeting-sync-10.png',
+      '/images/projects/meeting-sync/meeting-sync-11.png',
+      '/images/projects/meeting-sync/meeting-sync-12.png',
+      '/images/projects/meeting-sync/meeting-sync-13.png',
+      '/images/projects/meeting-sync/meeting-sync-14.png',
+      '/images/projects/meeting-sync/meeting-sync-15.png',
+      '/images/projects/meeting-sync/meeting-sync-16.png',
+      '/images/projects/meeting-sync/meeting-sync-17.png',
+      '/images/projects/meeting-sync/meeting-sync-18.png',
+      '/images/projects/meeting-sync/meeting-sync-19.png',
+      '/images/projects/meeting-sync/meeting-sync-20.png'
     ],
-    liveUrl: 'https://taskmaster.example.com',
-    githubUrl: 'https://github.com/you/task-master',
-    category: 'Productivity',
-    timeline: 'Jan 2023 – Apr 2023',
+    liveUrl: 'https://meeting-sync-beta.vercel.app/',
+    githubUrl: 'https://github.com/ByteCrister/meeting-sync',
+    category: 'Video conferencing and Online meetings',
+    timeline: 'Mar 2025 – Jul 2025',
     features: [
-      'Dynamic Kanban board with multiple lanes',
-      'Real-time updates via WebSocket',
-      'Drag-and-drop gestures for tasks'
+      'Intelligent meeting slot creation with overlap validation',
+      'Automated status transitions via cron jobs',
+      'Real-time booking and cancellation system',
+      'Engagement tracking and analytics',
+      'WebRTC-based peer-to-peer video calls',
+      'Integrated chat system during meetings',
+      'Screen sharing capabilities',
+      'Participant management and presence tracking',
+      `TF-IDF keyword extraction from meeting content`,
+      `K-means clustering for topic categorization`,
+      `Engagement scoring based on participation metrics`,
+      `Trend analysis and recommendation system`
     ],
     challenges: [
-      'Ensuring smooth live sync under heavy load',
-      'Managing complex state of nested drag operations'
+      'Meeting slot creation with timezone handling',
+      'Time overlap validation and conflict prevention',
+      `Automated status updates via cron jobs`,
+      `Participant booking and management`,
+      `Meeting slot status transitions (upcoming → active → completed)`,
+      `Video call creation and cleanup`,
+      `Engagement metric calculations`,
+
     ],
     learnings: [
-      'Deep dive into Socket.IO rooms and namespaces',
-      'Advanced React state management patterns'
+      'Refactor folder structure for maintainability',
+      'Extend use of caching and state memoization',
+      'Focus on better validation, security and edge-case handling',
+      'Improve socket retry logic and disconnection handling',
+    ]
+  },
+  {
+    slug: 'ai-games',
+    title: 'AI Interactive Games',
+    description:
+      'AI GAMES, a Next.js-based web application that implements three classic board games with AI opponents: Chess, Tic-Tac-Toe, and Reversi (Othello). The system demonstrates sophisticated AI algorithms including Minimax and Alpha-Beta Pruning, implemented with varying difficulty levels to provide engaging gameplay experiences.',
+    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Shadcn UI'],
+    thumbnail: '/images/projects/ai-games/ai-games-1.png',
+    images: [
+      '/images/projects/ai-games/ai-games-1.png',
+      '/images/projects/ai-games/ai-games-2.png',
+      '/images/projects/ai-games/ai-games-3.png',
+      '/images/projects/ai-games/ai-games-4.png',
+      '/images/projects/ai-games/ai-games-5.png'
+    ],
+    liveUrl: 'https://ai-games-cse-412.vercel.app/',
+    githubUrl: 'https://github.com/ByteCrister/AI-Games-CSE-412',
+    category: 'Gaming',
+    timeline: 'May 2025 – Jun 2025',
+    features: [
+      'The application leverages modern web development technologies with a focus on type safety, component reusability, and developer experience.',
+      'Each game system implements a consistent architectural pattern while accommodating game-specific requirements and AI complexities.',
+      'The codebase follows Next.js 13+ App Router conventions with a clear organizational hierarchy that separates routing, components, and utilities.'
+    ],
+    challenges: [
+      'Modern routing with dynamic [difficulty] parameters',
+      'Game state management through useChessGame, useReversiGame, and useTicTacToe',
+      'Clear boundaries between UI components, game logic, and AI algorithms',
+      'Optimized image handling through Next.js public directory'
+    ],
+    learnings: [
+      'Three complete game implementations sharing common infrastructure',
+      'Dynamic algorithm selection based on user-chosen difficulty levels',
+      'Tailwind CSS implementation ensuring cross-device compatibility',
+      'Comprehensive TypeScript integration across all components and logic',
+      'Shared UI components via shadcn/ui for consistent user experience',
+      'Custom loading components for enhanced user experience during navigation'
     ]
   },
   {

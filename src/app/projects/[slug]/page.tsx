@@ -1,4 +1,5 @@
 
+// G:\Projects\sadiqul-islam-shakib\src\app\projects\[slug]\page.tsx
 import ProjectDetail from "@/components/ProjectDetail";
 import { notFound } from "next/navigation";
 import { getProjectBySlug } from "@/utils/parameter.projects";
@@ -50,5 +51,5 @@ export default async function Page({
 
   if (!project) return notFound();
 
-  return <ProjectDetail slug={slug} />;
+  return <ProjectDetail project={project} />;
 }
