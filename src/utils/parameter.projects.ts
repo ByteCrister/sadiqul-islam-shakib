@@ -4,11 +4,12 @@ export interface Project {
   slug: string
   title: string
   description: string
-  tech: string[]
+  tech: string[],
   liveUrl?: string            // make optional
   githubUrl: string
   category: string
-  thumbnail?: string
+  thumbnail?: string,
+  fullScreen?:string,
   images?: string[]           // NEW: array of image URLs for gallery
   timeline?: string           // NEW: development time or milestone info
   features?: string[]         // NEW: bullet-point features
@@ -24,6 +25,7 @@ export const projects: Project[] = [
       `Meeting Sync is an intelligent meeting scheduling and video conferencing platform that combines real-time communication, automated scheduling, and AI-powered analytics to optimize meeting productivity. This document provides a comprehensive overview of the platform's architecture, core systems, and key capabilities.`,
     tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Shadcn UI', 'Axios API', 'Socket.IO', 'WebRTC', 'Redis Cache', 'Fuse.js', 'MongoDB', 'Mongoose'],
     thumbnail: '/images/projects/meeting-sync/meeting-sync-1.png',
+    fullScreen: '/images/projects/meeting-sync/full-screen-meeting-sync.png',
     images: [
       '/images/projects/meeting-sync/meeting-sync-1.png',
       '/images/projects/meeting-sync/meeting-sync-2.png',

@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { motion, Variants, AnimatePresence } from "framer-motion";
 import { getRandomImage } from "@/utils/image";
+import { FullscreenImage } from "./FullscreenImage";
 
 const container: Variants = {
     hidden: {},
@@ -195,6 +196,22 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
                         </motion.div>
                     );
                 })}
+
+                {/* Single Full-Scale Screenshot */}
+                {project.fullScreen && (
+                    <motion.div
+                        variants={fadeIn}
+                        custom={3 /* bump indices of later sections by +1 */}
+                        className="mt-10 max-w-4xl mx-auto"
+                    >
+                        <FullscreenImage
+                            src={project.fullScreen}
+                            alt={`${project.title} full-scale view`}
+                            width={1280}
+                            height={720}
+                        />
+                    </motion.div>
+                )}
 
                 {/* Additional Screenshots */}
                 {project.images && project.images?.length > 0 && (
