@@ -1,3 +1,4 @@
+// G:\Projects\sadiqul-islam-shakib\src\utils\parameter.footer.ts
 import { Github, Linkedin, Mail } from "lucide-react";
 
 export const socials = [

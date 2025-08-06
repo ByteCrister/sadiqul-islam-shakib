@@ -1,3 +1,4 @@
+//G:\Projects\sadiqul-islam-shakib\src\utils\parameter.about.ts
 import { Award, BookOpen, Briefcase, Calendar, Code, GraduationCap, Star } from "lucide-react";
 import { FaCube, FaDatabase } from "react-icons/fa";
 import {

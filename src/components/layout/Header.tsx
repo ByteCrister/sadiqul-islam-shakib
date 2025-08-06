@@ -8,9 +8,13 @@ import { Sun, Moon, Download, Menu, X } from 'lucide-react';
 import { Cursor, useTypewriter } from 'react-simple-typewriter';
 import { DownloadCvPath, navItems, NavWords } from '@/utils/parameter.header';
 import { usePathname } from 'next/navigation';
+import MobileSignInModal from '../MobileSignInModal';
+import DashboardButton from '../DashboardButton';
+import { usePortfolioStore } from '@/store/usePortfolioStore';
 
 export default function Header() {
     const pathname = usePathname();
+    const { isLoggedIn } = usePortfolioStore.getState();
     const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
@@ -60,6 +64,8 @@ export default function Header() {
                             </Link>
                         )
                     })}
+
+                    <DashboardButton isLoggedIn={isLoggedIn} pathname={pathname} />
 
                     <motion.a
                         href={DownloadCvPath}
@@ -117,6 +123,9 @@ export default function Header() {
                                     </Link>
                                 </li>
                             ))}
+                            <li>
+                                <MobileSignInModal isLoggedIn={isLoggedIn} />
+                            </li>
                             <li className="flex justify-center">
                                 <Link
                                     href={DownloadCvPath}

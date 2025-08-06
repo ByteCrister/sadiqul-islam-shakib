@@ -1,3 +1,4 @@
+// G:\Projects\sadiqul-islam-shakib\src\utils\parameter.header.ts
 export const navItems = [
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },

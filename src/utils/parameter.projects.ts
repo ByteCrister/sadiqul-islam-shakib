@@ -1,4 +1,4 @@
-
+// G:\Projects\sadiqul-islam-shakib\src\utils\parameter.hero.ts
 
 export interface Project {
   slug: string
