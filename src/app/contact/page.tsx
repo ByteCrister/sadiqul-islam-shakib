@@ -1,4 +1,4 @@
-import ContactForm from "@/components/ContactForm";
+import Contact from "@/components/contact/Contact";
 import { generatePageMetadata } from "@/utils/metadata";
 import { Metadata } from "next";
 
@@ -29,8 +29,8 @@ export const viewport = {
   ],
 };
 
-const ContactPage = () => {
-  return <ContactForm />;
+const page = () => {
+  return <Contact />;
 };
 
-export default ContactPage;
+export default page;

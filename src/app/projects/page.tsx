@@ -1,4 +1,4 @@
-import ProjectCard from "@/components/ProjectCard";
+import Projects from "@/components/projects/Projects";
 import { generatePageMetadata } from "@/utils/metadata";
 import { Metadata } from "next";
 
@@ -29,6 +29,11 @@ export const viewport = {
   ],
 };
 
-export default function ProjectsPage() {
-  return <ProjectCard />;
+
+const page = () => {
+  return (
+     <Projects />
+  )
 }
+
+export default page

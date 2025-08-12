@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import styles from './styles/Loading3DText.module.css';
+import styles from '../styles/Loading3DText.module.css';
 
 const Loading3DText = () => {
     return (

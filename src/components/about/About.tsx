@@ -10,8 +10,8 @@ import {
 } from "framer-motion";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
 import { projects } from "@/utils/parameter.projects";
-import ProjectHighlights from "./ProjectHighlights";
 import { counterData, experiences, skills } from "@/utils/parameter.about";
+import ProjectHighlights from "./ProjectHighlights";
 
 const container: Variants = {
     hidden: { opacity: 0 },
@@ -27,7 +27,7 @@ const fadeUp: Variants = {
     },
 };
 
-export default function AboutSection() {
+export default function About() {
     const [bioText] = useTypewriter({
         words: [
             "I build pixel-perfect user interfaces.",

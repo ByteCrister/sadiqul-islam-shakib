@@ -10,7 +10,7 @@ import { getRandomImage } from "@/utils/image";
 import Link from "next/link";
 
 
-const ProjectCard = () => {
+const Projects = () => {
   const router = useRouter();
   const [showAll, setShowAll] = useState(false);
 
@@ -126,4 +126,4 @@ const ProjectCard = () => {
   );
 };
 
-export default ProjectCard;
+export default Projects;

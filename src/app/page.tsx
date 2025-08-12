@@ -1,4 +1,4 @@
-import Hero from "@/components/Hero";
+import Hero from "@/components/hero/Hero";
 import { generatePageMetadata } from "@/utils/metadata";
 import { Metadata } from "next";
 

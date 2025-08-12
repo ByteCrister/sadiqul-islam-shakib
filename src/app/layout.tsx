@@ -8,7 +8,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/effect-coverflow'
-import Loading3DText from '@/components/Loading3DText';
+import Loading3DText from '@/components/others/Loading3DText';
 
 
 export const metadata: Metadata = {

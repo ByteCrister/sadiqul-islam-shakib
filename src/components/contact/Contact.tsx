@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+import { Button } from "../ui/button";
 
-const ContactForm = () => {
+const Contact = () => {
     const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
     async function onSubmit(e: React.FormEvent) {
@@ -101,4 +101,4 @@ const ContactForm = () => {
     );
 };
 
-export default ContactForm;
+export default Contact;
