@@ -1,4 +1,4 @@
-import Loading3DText from "@/components/Loading3DText"
+import Loading3DText from "@/components/others/Loading3DText"
 
 const LoadingPage = () => {
   return (

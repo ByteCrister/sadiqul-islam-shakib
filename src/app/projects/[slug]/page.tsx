@@ -1,6 +1,6 @@
 
 // G:\Projects\sadiqul-islam-shakib\src\app\projects\[slug]\page.tsx
-import ProjectDetail from "@/components/ProjectDetail";
+import ProjectDetail from "@/components/project-details/ProjectDetail";
 import { notFound } from "next/navigation";
 import { getProjectBySlug } from "@/utils/parameter.projects";
 import { generatePageMetadata } from "@/utils/metadata";

@@ -2,12 +2,12 @@
 import { Toaster } from "react-hot-toast";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
-import { UserInitializer } from "./UserInitializer";
+import { Initializer } from "./Initializer";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <SessionProvider>
-      <UserInitializer />
+      <Initializer />
       <ThemeProvider
         attribute="class"
         defaultTheme="system"

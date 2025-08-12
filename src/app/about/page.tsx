@@ -1,4 +1,4 @@
-import About from '@/components/About'
+import About from '@/components/about/About';
 import { generatePageMetadata } from '@/utils/metadata'
 import { Metadata } from 'next'
 
@@ -29,8 +29,8 @@ export const viewport = {
   ],
 };
 
-const AboutPage = () => {
+const page = () => {
   return <About />
 }
 
-export default AboutPage
+export default page

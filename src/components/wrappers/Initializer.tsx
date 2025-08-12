@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { usePortfolioStore } from "@/store/usePortfolioStore";
 import { STATUS } from "@/constant/next-auth";
 
-export function UserInitializer() {
+export function Initializer() {
     const { data: session, status } = useSession();
     const { setIsLoggedIn } = usePortfolioStore.getState();
 

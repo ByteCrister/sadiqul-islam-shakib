@@ -8,7 +8,6 @@ import 'swiper/css/pagination'
 import 'swiper/css/effect-coverflow'
 import { Providers } from '@/components/wrappers/Providers';
 
-
 export const metadata: Metadata = {
   title: 'Sadiqul Portfolio',
   description: 'Next.js & TypeScript developer crafting polished experiences.',
