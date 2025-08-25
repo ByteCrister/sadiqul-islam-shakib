@@ -32,58 +32,64 @@ export const skills = [
 
 export const experiences = [
     {
-        role: "Senior Frontend Engineer",
-        org: "Awesome Co",
-        period: "2022 – Present",
+        role: "Courses & Certifications",
+        org: "Self-Learning & Online Platforms",
+        period: "Ongoing",
         description:
-            "Leading UI architecture for scalable React/Next.js applications.",
+            "Actively pursuing online courses and certifications to strengthen expertise in software development, web technologies, and computer science fundamentals.",
         points: [
-            "Designed modular component library with shadcn/ui",
-            "Optimized bundle size by 25%+ using dynamic imports",
-            "Mentored 4 junior engineers in Next.js best practices",
+            "Completed courses on Data Structures & Algorithms (DSA) with JavaScript/TypeScript",
+            "Built projects while learning Full-Stack Web Development with Next.js, React, Node.js, and MongoDB",
+            "Explored courses on Database Systems, focusing on relational & NoSQL models",
+            "Currently learning about AI & Machine Learning fundamentals for practical integration in web apps",
+            "Practicing problem-solving on platforms like LeetCode & HackerRank alongside coursework",
         ],
         icon: Briefcase,
     },
     {
-        role: "Software Engineer Intern",
-        org: "Tech Startup",
-        period: "Summer 2021",
-        description: "Built interactive dashboards and real-time features.",
+        role: "Academic & Personal Projects",
+        org: "North East University Bangladesh (Self-Initiated)",
+        period: "2022 – Present",
+        description:
+            "Ongoing development of full-stack and AI-driven projects using JavaScript, TypeScript, Next.js, database and AI concepts.",
         points: [
-            "Implemented live chat using Socket.IO",
-            "Ensured WCAG 2.1 AA accessibility",
-            "Integrated Auth0 for seamless authentication",
+            "Developed interactive AI-based games demonstrating fundamental algorithms using TypeScript (AI-Games-CSE-412) – explorative in decision-making techniques",
+            "Built a full-stack e-commerce style site (Gadget-IT.com) using JavaScript – end-to-end project showcasing UI, backend, and integration",
+            "Created an inventory management system (NEUB Database Project) using EJS and JavaScript – university database project demonstrating CRUD operations",
+            "Designed a Todo-style application using Next.js and TypeScript (Note Task) – practicing reactive UI, state management, and TypeScript typing",
+            "Built a classic Pong game in JavaScript – understand game mechanics, rendering, and user interaction"
         ],
-        icon: Code,
+        icon: Code
     },
     {
         role: "BSc in Computer Science",
-        org: "State University",
-        period: "2018 – 2022",
+        org: "North East University Bangladesh",
+        period: "2022 – Present",
         description:
-            "Graduated with honors; specialized in web technologies & algorithms.",
+            "Currently pursuing undergraduate studies in Computer Science with a strong interest in software development and problem-solving.",
         points: [
-            "Maintained 4.0 GPA; Dean’s List 2020–2022",
-            "President of the Coding Club; organized hackathons",
-            "Published paper on graph-based algorithms",
+            "Actively participate in university coding festivals and inter-university hackathons",
+            "Member of the Coding Club, collaborating on projects and peer learning",
+            "Focused on improving skills in web technologies, algorithms, and competitive programming",
         ],
         icon: GraduationCap,
     },
     {
-        role: "High School Diploma",
-        org: "Brighton High School",
-        period: "2016 – 2018",
-        description: "STEM program graduate, top 5% of class.",
+        role: "Higher Secondary School Certificate",
+        period: "2019 – 2021",
+        org: "Universal College Sylhet",
+        description: "Complete higher secondary education with valuable lessons beyond academics.",
         points: [
-            "Led robotics team to regional finals",
-            "Captain of math olympiad squad",
+            "Actively participated in sports and cultural programs",
+            "Learned teamwork and collaboration through group activities",
+            "Built resilience by overcoming academic challenges",
         ],
         icon: BookOpen,
-    },
+    }
 ];
 
 export const counterData = [
-    { label: "Years Experience", value: 3, Icon: Calendar },
-    { label: "Projects Delivered", value: 12, Icon: Award },
-    { label: "Open-Source Stars", value: 1500, Icon: Star },
+    { label: "Years of Learning", value: 3, Icon: Calendar },
+    { label: "Academic & Personal Projects", value: 10, Icon: Award },
+    { label: "Technologies Explored", value: 15, Icon: Star },
 ];
