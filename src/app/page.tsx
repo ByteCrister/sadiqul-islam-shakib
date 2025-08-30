@@ -10,6 +10,10 @@ export const metadata: Metadata = {
     tags: Array.from(
       new Set([
         'Sadiqul Islam Shakib',
+        'Sadiqul Islam Shakib Portfolio',
+        'Sadiqul',
+        'Islam',
+        'Shakib',
         'Portfolio',
         'Web Developer',
         'Full-Stack Developer',
@@ -27,6 +31,9 @@ export const metadata: Metadata = {
         'Axios',
         'Zustand',
         'Mongoose',
+        'CSE',
+        'BSC (Engg.) in CSE',
+        'North East University Bangladesh'
       ])
     ),
   }),

@@ -29,6 +29,10 @@ export async function generateMetadata(
         ...(project.challenges ?? []),
         ...(project.features ?? []),
         project.description ?? "",
+        'Sadiqul Islam Shakib',
+        'Sadiqul',
+        'Islam',
+        'Shakib'
       ],
     }),
     metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL ?? ''),

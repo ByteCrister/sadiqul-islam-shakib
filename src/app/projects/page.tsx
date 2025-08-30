@@ -16,7 +16,14 @@ export const metadata: Metadata = {
       'Full-Stack Developer Work',
       'Frontend Projects',
       'Web Developer Bangladesh',
+      'Sadiqul Islam Shakib',
       'Sadiqul Islam Shakib Portfolio',
+      'Sadiqul Islam Shakib Portfolio Projects',
+      'Sadiqul Islam Shakib Projects',
+      'Projects',
+      'Sadiqul',
+      'Islam',
+      'Shakib'
     ]
   }),
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL??''),

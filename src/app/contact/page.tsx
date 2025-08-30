@@ -9,7 +9,14 @@ export const metadata: Metadata = {
     path: '/contact',
     image: '/og-contact.png',
     tags: [
-      'Contact Sadiqul Islam Shakib',
+      'Sadiqul Islam Shakib',
+      'Sadiqul Islam Shakib Portfolio',
+      'Sadiqul Islam Shakib Portfolio Contact',
+      'Sadiqul Islam Shakib Contact',
+      'Sadiqul',
+      'Islam',
+      'Shakib',
+      'Contact',
       'Portfolio',
       'Developer Contact',
       'Hire Next.js Developer',
@@ -19,7 +26,7 @@ export const metadata: Metadata = {
       'Full-Stack Developer'
     ],
   }),
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL??''),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL ?? ''),
 };
 
 export const viewport = {
