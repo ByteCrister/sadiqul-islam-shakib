@@ -14,4 +14,4 @@ export const NavWords = [
     'Lifelong Learner',
 ];
 
-export const DownloadCvPath = '/assets/Purple and White Clean and Professional Resume.pdf';
+export const DownloadCvPath = '/assets/sadiqul-islam-shakib-cv.pdf';
