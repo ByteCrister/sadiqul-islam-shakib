@@ -1,127 +1,132 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { projects } from "@/utils/parameter.projects";
-import { ExternalLink, Github } from "lucide-react";
-import Image from "next/image";
+import { Code2, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { getRandomImage } from "@/utils/image";
-import Link from "next/link";
+import { useState, useCallback } from "react";
+import ProjectCard from "./ProjectCard";
 
+// Animation variants
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    },
+  },
+};
 
 const Projects = () => {
   const router = useRouter();
-  const [showAll, setShowAll] = useState(false);
+  const [showAll, setShowAll] = useState<boolean>(false);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 40 },
-    show: { opacity: 1, y: 0 },
-  };
-
-  // Show only first 6 projects if showAll is false
+  // Get unique technologies for filtering
+  const allTech = Array.from(new Set(projects.flatMap(project => project.tech)));
   const visibleProjects = showAll ? projects : projects.slice(0, 6);
 
+  const handleProjectClick = useCallback((slug: string) => {
+    router.push(`/projects/${slug}`);
+  }, [router]);
+
+  const toggleShowAll = useCallback(() => {
+    setShowAll(prev => !prev);
+  }, []);
+
   return (
-    <section className="px-6 py-12 min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-neutral-900 dark:via-neutral-950 dark:to-neutral-900 rounded-xl">
-      <h1 className="text-4xl font-extrabold mb-10 text-center text-neutral-800 dark:text-neutral-100">
-        My Projects
-      </h1>
+    <section className="relative min-h-screen py-20 px-4 sm:px-6 lg:px-8">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-neutral-900 dark:via-neutral-950 dark:to-neutral-900">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:32px_32px] dark:bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)]" />
+      </div>
 
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="show"
-        className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto"
-      >
-        {visibleProjects.map((project, index) => {
-          const src = project.thumbnail ?? getRandomImage(640, 360);
-          return (
-            <motion.div
-              key={project.slug}
-              variants={itemVariants}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
-              whileHover={{ y: -4 }}
-              className="rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-lg p-4 flex flex-col justify-between hover:shadow-xl transition-all duration-300 cursor-pointer"
-              onClick={() => router.push(`/projects/${project.slug}`)}
-            >
-              {project.thumbnail && (
-                <div className="relative overflow-hidden rounded-xl mb-4">
-                  <Image
-                    src={src}
-                    alt={`${project.title} thumbnail`}
-                    width={640}
-                    height={360}
-                    className="w-full h-auto object-cover transition-transform duration-300 hover:scale-105"
-                  />
-                </div>
-              )}
-
-              <div>
-                <h3 className="text-2xl font-bold text-neutral-800 dark:text-neutral-100 mb-2">
-                  {project.title}
-                </h3>
-                <p className="text-neutral-600 dark:text-neutral-300 mb-4 text-sm leading-relaxed">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tech.map((tech) => (
-                    <span
-                      key={tech}
-                      className="inline-block bg-neutral-100 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200 text-xs font-medium px-3 py-1 rounded-full shadow-sm"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-4 mt-auto">
-                {project.liveUrl && (
-                  <Link
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1 text-primary font-semibold hover:underline"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <ExternalLink size={16} /> Live
-                  </Link>
-                )}
-                <Link
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-primary font-semibold hover:underline"
-                  onClick={e => e.stopPropagation()}
-                >
-                  <Github size={16} /> GitHub
-                </Link>
-              </div>
-            </motion.div>
-          )
-        })}
-      </motion.div>
-
-      {/* Show All button */}
-      {projects.length > 6 && !showAll && (
-        <div className="text-center mt-10">
-          <button
-            onClick={() => setShowAll(true)}
-            className="px-6 py-2 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-primary/90 transition"
+      <div className="relative max-w-7xl mx-auto">
+        {/* Header Section */}
+        <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-neutral-100 to-neutral-50 dark:from-neutral-800 dark:to-neutral-700 border border-neutral-200/50 dark:border-neutral-600/50 rounded-full text-sm font-medium text-neutral-700 dark:text-neutral-200 mb-6"
           >
-            Show All Projects
-          </button>
+            <Code2 className="w-4 h-4" />
+            Portfolio Showcase
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-neutral-900 via-neutral-800 to-neutral-700 dark:from-neutral-100 dark:via-neutral-200 dark:to-neutral-300 bg-clip-text text-transparent mb-6"
+          >
+            My Projects
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto leading-relaxed"
+          >
+            Explore my collection of projects showcasing modern web technologies,
+            innovative solutions, and creative problem-solving approaches.
+          </motion.p>
+
+          {/* Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex items-center justify-center gap-8 mt-8 text-sm text-neutral-600 dark:text-neutral-400"
+          >
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-500 rounded-full" />
+              <span>{projects.length} Projects</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-blue-500 rounded-full" />
+              <span>{allTech.length}+ Technologies</span>
+            </div>
+          </motion.div>
         </div>
-      )}
+
+        {/* Projects Grid */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
+          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {visibleProjects.map((project, index) => (
+            <ProjectCard
+              key={project.slug}
+              project={project}
+              index={index}
+              onClick={handleProjectClick}
+            />
+          ))}
+        </motion.div>
+
+        {/* Show More Button */}
+        {projects.length > 6 && (
+          <div className="text-center mt-12">
+            <motion.button
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              onClick={toggleShowAll}
+              className="group inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-neutral-900 to-neutral-800 hover:from-neutral-800 hover:to-neutral-700 dark:from-neutral-100 dark:to-neutral-200 dark:hover:from-neutral-200 dark:hover:to-neutral-300 text-white dark:text-neutral-900 font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+            >
+              <span>{showAll ? 'Show Less' : 'Show All Projects'}</span>
+              <ChevronRight
+                className={`w-4 h-4 group-hover:translate-x-1 transition-transform duration-200 ${showAll ? 'rotate-90' : ''}`}
+              />
+            </motion.button>
+          </div>
+        )}
+      </div>
     </section>
   );
 };

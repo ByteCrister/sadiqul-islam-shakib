@@ -176,7 +176,7 @@ export default function About() {
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true }}
-                className="mt-28 max-w-4xl mx-auto px-4 sm:px-6 relative"
+                className="mt-10 max-w-4xl mx-auto px-4 sm:px-6 relative"
             >
                 <motion.h3
                     variants={fadeUp}
@@ -186,7 +186,7 @@ export default function About() {
     inline-block px-4 py-2
     bg-none
     text-neutral-800 dark:text-slate-100
-    text-3xl font-bold mb-10 text-center
+    text-3xl font-bold mb-5 text-center
   "
                 >
                     Experience & Education
