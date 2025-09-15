@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sun, Moon, Download, Menu, X } from 'lucide-react';
 import { Cursor, useTypewriter } from 'react-simple-typewriter';
-import { DownloadCvPath, navItems, NavWords } from '@/utils/parameter.header';
+import { DownloadCvPath, navItems, NavWords } from '@/utils/params/parameter.header';
 import { usePathname } from 'next/navigation';
 
 export default function Header() {

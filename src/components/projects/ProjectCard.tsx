@@ -1,9 +1,9 @@
 
-import { getRandomImage } from "@/utils/image";
+import { getRandomImage } from "@/utils/helper/image";
 import Link from "next/link";
 import { ExternalLink, Github, Code2, Eye, ChevronRight, Sparkles } from "lucide-react";
 import Image from "next/image";
-import { Project } from "@/utils/parameter.projects";
+import { Project } from "@/utils/params/parameter.projects";
 import { Variants, motion } from "framer-motion";
 import { useCallback, useState } from "react";
 

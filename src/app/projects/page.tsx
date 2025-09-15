@@ -1,5 +1,5 @@
 import Projects from "@/components/projects/Projects";
-import { generatePageMetadata } from "@/utils/metadata";
+import { generatePageMetadata } from "@/utils/helper/metadata";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { Project } from "@/utils/parameter.projects";
+import { Project } from "@/utils/params/parameter.projects";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -13,7 +13,7 @@ import {
     BookOpen,
 } from "lucide-react";
 import { motion, Variants, AnimatePresence } from "framer-motion";
-import { getRandomImage } from "@/utils/image";
+import { getRandomImage } from "@/utils/helper/image";
 import { FullscreenImage } from "./FullscreenImage";
 
 const container: Variants = {

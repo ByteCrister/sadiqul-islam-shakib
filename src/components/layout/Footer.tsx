@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { userName } from '@/utils/parameter.global';
-import { socials } from '@/utils/parameter.footer';
+import { userName } from '@/utils/params/parameter.global';
+import { socials } from '@/utils/params/parameter.footer';
 
 export default function Footer() {
   const year = new Date().getFullYear();

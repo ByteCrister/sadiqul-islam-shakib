@@ -1,4 +1,4 @@
-import { getAllProjects } from "@/utils/parameter.projects";
+import { getAllProjects } from "@/utils/params/parameter.projects";
 export async function GET() {
     const baseUrl = "https://sadiqul-islam-shakib.vercel.app";
 

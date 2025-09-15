@@ -1,5 +1,5 @@
 import Contact from "@/components/contact/Contact";
-import { generatePageMetadata } from "@/utils/metadata";
+import { generatePageMetadata } from "@/utils/helper/metadata";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { projects } from "@/utils/parameter.projects";
+import { projects } from "@/utils/params/parameter.projects";
 import { Code2, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useCallback } from "react";

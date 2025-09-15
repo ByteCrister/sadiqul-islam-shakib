@@ -9,8 +9,8 @@ import {
     useInView,
 } from "framer-motion";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
-import { projects } from "@/utils/parameter.projects";
-import { counterData, experiences, skills } from "@/utils/parameter.about";
+import { projects } from "@/utils/params/parameter.projects";
+import { counterData, experiences, skills } from "@/utils/params/parameter.about";
 import ProjectHighlights from "./ProjectHighlights";
 
 const container: Variants = {

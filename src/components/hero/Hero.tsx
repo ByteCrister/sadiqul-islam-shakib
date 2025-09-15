@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
-import { HeroWords } from "@/utils/parameter.hero";
-import { userName } from "@/utils/parameter.global";
+import { HeroWords } from "@/utils/params/parameter.hero";
+import { userName } from "@/utils/params/parameter.global";
 
 const MotionLink = motion.create(Link);
 

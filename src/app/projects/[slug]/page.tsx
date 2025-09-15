@@ -2,8 +2,8 @@
 // G:\Projects\sadiqul-islam-shakib\src\app\projects\[slug]\page.tsx
 import ProjectDetail from "@/components/project-details/ProjectDetail";
 import { notFound } from "next/navigation";
-import { getProjectBySlug } from "@/utils/parameter.projects";
-import { generatePageMetadata } from "@/utils/metadata";
+import { getProjectBySlug } from "@/utils/params/parameter.projects";
+import { generatePageMetadata } from "@/utils/helper/metadata";
 import type { Metadata } from "next";
 
 export async function generateMetadata(

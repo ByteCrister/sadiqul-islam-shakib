@@ -18,7 +18,7 @@ import 'swiper/css/pagination'
 import 'swiper/css/effect-coverflow'
 import type SwiperType from 'swiper'
 
-import { Project } from '@/utils/parameter.projects'
+import { Project } from '@/utils/params/parameter.projects'
 
 const container: Variants = {
   hidden: { opacity: 0 },
