@@ -1,21 +1,28 @@
-
-
 export interface Project {
   slug: string
   title: string
   description: string
-  tech: string[],
-  liveUrl?: string            // make optional
+  tech: string[]
+  liveUrl?: string
   githubUrl: string
   category: string
-  thumbnail?: string,
-  fullScreen?: string,
-  images?: string[]           // NEW: array of image URLs for gallery
-  timeline?: string           // NEW: development time or milestone info
-  features?: string[]         // NEW: bullet-point features
-  challenges?: string[]       // NEW: highlight technical challenges
-  learnings?: string[]        // NEW: what you learned from the project
+  thumbnail?: string
+  fullScreen?: string
+  images?: string[]
+  timeline?: string
+  features?: string[]
+  challenges?: string[]
+  learnings?: string[]
+
+  // NEW fields
+  loginCredentials?: {
+    email?: string
+    password?: string
+  }
+
+  warningMessage?: string    // e.g., "This is a demo account. Don't enter real data."
 }
+
 
 export const projects: Project[] = [
   {
@@ -81,7 +88,12 @@ export const projects: Project[] = [
       'Extend use of caching and state memoization',
       'Focus on better validation, security and edge-case handling',
       'Improve socket retry logic and disconnection handling',
-    ]
+    ],
+    loginCredentials: {
+      email: "sadiqul.islam.shakib21@gmail.com",
+      password: "zZ1!123"
+    },
+    warningMessage: "Do not change anything only for viewing."
   },
   {
     slug: 'ai-games',
@@ -176,7 +188,12 @@ export const projects: Project[] = [
       "Advanced Mongoose schema design with embedded documents",
       "Zustand state management patterns",
       "NextAuth.js integration with MongoDB"
-    ]
+    ],
+    loginCredentials: {
+      email: "sadiqul.islam.shakib21@gmail.com",
+      password: "zZ1!123"
+    },
+    warningMessage: "Do not change anything only for viewing."
   },
   {
     slug: 'chatty',

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Project } from "@/utils/params/parameter.projects";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,6 +11,9 @@ import {
     Sparkles,
     TriangleAlert,
     BookOpen,
+    Lock,
+    Copy,
+    Check,
 } from "lucide-react";
 import { motion, Variants, AnimatePresence } from "framer-motion";
 import { getRandomImage } from "@/utils/helper/image";
@@ -42,9 +45,21 @@ interface ProjectDetailProps {
 }
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
+    const [copiedField, setCopiedField] = useState<string | null>(null);
+
     useEffect(() => {
         window.scrollTo({ top: 0 });
     }, []);
+
+    const handleCopy = async (text: string, field: string) => {
+        try {
+            await navigator.clipboard.writeText(text);
+            setCopiedField(field);
+            setTimeout(() => setCopiedField(null), 2000);
+        } catch (err) {
+            console.error("Failed to copy:", err);
+        }
+    };
 
     if (!project)
         return (
@@ -150,6 +165,91 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
                         GitHub
                     </MotionLink>
                 </motion.div>
+
+                
+                {/* Warning Message */}
+                {project.warningMessage && (
+                    <motion.div
+                        variants={fadeIn}
+                        custom={2}
+                        className="mt-6 max-w-3xl mx-auto"
+                    >
+                        <div className="flex items-start gap-3 p-4 rounded-xl bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border border-yellow-200 dark:border-yellow-700/50 shadow-sm">
+                            <TriangleAlert className="w-5 h-5 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
+                            <p className="text-sm text-yellow-800 dark:text-yellow-200 font-medium">
+                                {project.warningMessage}
+                            </p>
+                        </div>
+                    </motion.div>
+                )}
+
+                {/* Login Credentials */}
+                {project.loginCredentials && (project.loginCredentials.email || project.loginCredentials.password) && (
+                    <motion.div
+                        variants={fadeIn}
+                        custom={8}
+                        className="mt-8 max-w-xl mx-auto bg-gradient-to-br from-white/50 to-white/10 dark:from-neutral-800/40 dark:to-neutral-900/30 p-6 rounded-2xl shadow-xl border border-white/20 dark:border-neutral-700/30 backdrop-blur-lg"
+                    >
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="p-2 rounded-xl bg-white/70 dark:bg-neutral-800/70 shadow-sm">
+                                <Lock className="w-5 h-5 text-blue-500 dark:text-blue-400" />
+                            </div>
+                            <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-100">
+                                Demo Credentials
+                            </h3>
+                        </div>
+                        
+                        <div className="space-y-3">
+                            {project.loginCredentials.email && (
+                                <div className="bg-white/60 dark:bg-neutral-800/60 p-3 rounded-lg">
+                                    <label className="text-xs font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">
+                                        Email
+                                    </label>
+                                    <div className="flex items-center gap-2 mt-1">
+                                        <code className="flex-1 text-sm font-mono text-neutral-800 dark:text-neutral-200 bg-neutral-100 dark:bg-neutral-900 px-3 py-1.5 rounded">
+                                            {project.loginCredentials.email}
+                                        </code>
+                                        <button
+                                            onClick={() => handleCopy(project.loginCredentials!.email!, 'email')}
+                                            className="p-2 rounded-lg bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600 transition-colors"
+                                            title="Copy email"
+                                        >
+                                            {copiedField === 'email' ? (
+                                                <Check className="w-4 h-4 text-green-600 dark:text-green-400" />
+                                            ) : (
+                                                <Copy className="w-4 h-4 text-neutral-600 dark:text-neutral-300" />
+                                            )}
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                            
+                            {project.loginCredentials.password && (
+                                <div className="bg-white/60 dark:bg-neutral-800/60 p-3 rounded-lg">
+                                    <label className="text-xs font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">
+                                        Password
+                                    </label>
+                                    <div className="flex items-center gap-2 mt-1">
+                                        <code className="flex-1 text-sm font-mono text-neutral-800 dark:text-neutral-200 bg-neutral-100 dark:bg-neutral-900 px-3 py-1.5 rounded">
+                                            {project.loginCredentials.password}
+                                        </code>
+                                        <button
+                                            onClick={() => handleCopy(project.loginCredentials!.password!, 'password')}
+                                            className="p-2 rounded-lg bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600 transition-colors"
+                                            title="Copy password"
+                                        >
+                                            {copiedField === 'password' ? (
+                                                <Check className="w-4 h-4 text-green-600 dark:text-green-400" />
+                                            ) : (
+                                                <Copy className="w-4 h-4 text-neutral-600 dark:text-neutral-300" />
+                                            )}
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </motion.div>
+                )}
 
                 {/* Features / Challenges / Learnings */}
                 {(["features", "challenges", "learnings"] as const).map((section, i) => {
