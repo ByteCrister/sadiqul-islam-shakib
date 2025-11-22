@@ -9,7 +9,7 @@ export interface Project {
   githubUrl: string
   category: string
   thumbnail?: string,
-  fullScreen?:string,
+  fullScreen?: string,
   images?: string[]           // NEW: array of image URLs for gallery
   timeline?: string           // NEW: development time or milestone info
   features?: string[]         // NEW: bullet-point features
@@ -122,29 +122,60 @@ export const projects: Project[] = [
     ]
   },
   {
-    slug: 'shop-easy',
-    title: 'ShopEasy',
+    slug: 'next-learn',
+    title: 'Next Learn - Learning Management System',
     description:
-      'An e-commerce platform with searchable product listings, shopping cart, and Stripe-powered checkout.',
-    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Stripe API'],
-    thumbnail: 'https://picsum.photos/300/200',
-    images: ['https://picsum.photos/300/200', 'https://picsum.photos/300/200'],
-    liveUrl: 'https://shopeasy.example.com',
-    githubUrl: 'https://github.com/you/shop-easy',
-    category: 'E-commerce',
-    timeline: 'May 2023 – Jul 2023',
+      'A comprehensive educational platform built with Next.js 15, featuring course management, exam systems, and study materials',
+    tech: ["Next.js 15", "TypeScript", "MongoDB", "Mongoose", "NextAuth.js", "Tailwind CSS", "Zustand", "TipTap Editor", "React Hook Form", "Zod"],
+    thumbnail: '/images/projects/next-learn/next-learn-1.png',
+    images: [
+      '/images/projects/next-learn/next-learn-1.png',
+      '/images/projects/next-learn/next-learn-2.png',
+      '/images/projects/next-learn/next-learn-3.png',
+      '/images/projects/next-learn/next-learn-4.png',
+      '/images/projects/next-learn/next-learn-5.png',
+      '/images/projects/next-learn/next-learn-6.png',
+      '/images/projects/next-learn/next-learn-7.png',
+      '/images/projects/next-learn/next-learn-8.png',
+      '/images/projects/next-learn/next-learn-9.png',
+      '/images/projects/next-learn/next-learn-10.png',
+      '/images/projects/next-learn/next-learn-11.png',
+      '/images/projects/next-learn/next-learn-12.png',
+      '/images/projects/next-learn/next-learn-13.png',
+      '/images/projects/next-learn/next-learn-14.png',
+      '/images/projects/next-learn/next-learn-15.png',
+      '/images/projects/next-learn/next-learn-16.png',
+      '/images/projects/next-learn/next-learn-17.png',
+      '/images/projects/next-learn/next-learn-18.png',
+      '/images/projects/next-learn/next-learn-19.png',
+      '/images/projects/next-learn/next-learn-20.png',
+      '/images/projects/next-learn/next-learn-21.png',
+      '/images/projects/next-learn/next-learn-22.png',
+    ],
+    liveUrl: 'https://next-learn-nu-olive.vercel.app',
+    githubUrl: 'https://github.com/ByteCrister/next-learn',
+    category: 'Full-Stack Web Application',
+    timeline: 'Jul 2025 – Nov 2025',
     features: [
-      'Faceted product search and filtering',
-      'Persistent shopping cart',
-      'Secure Stripe checkout flow'
+      "User authentication with credentials and Google OAuth",
+      "Subject and course roadmap management",
+      "Interactive exam creation and taking system",
+      "Study materials upload and organization",
+      "Calendar events and routine scheduling",
+      "Rich text editing with TipTap",
+      "Real-time dashboard with metrics"
     ],
     challenges: [
-      'Integrating Stripe webhooks reliably',
-      'Optimizing image serving for large catalogs'
+      "Complex nested data structures (Batch model with 4-5 levels of nesting)",
+      "Three-layer validation strategy (Yup, sanitization, Mongoose)",
+      "Serverless MongoDB connection pooling",
+      "User-scoped data isolation across all routes"
     ],
     learnings: [
-      'Best practices for PCI compliance',
-      'Techniques for lazy-loading large asset sets'
+      "Next.js 15 App Router architecture",
+      "Advanced Mongoose schema design with embedded documents",
+      "Zustand state management patterns",
+      "NextAuth.js integration with MongoDB"
     ]
   },
   {
