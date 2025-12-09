@@ -44,7 +44,7 @@ export default function RootLayout({
         >
           <Suspense fallback={<Loading3DText />}>
             <Header />
-            <main className="container mx-auto px-4 py-8">{children}</main>
+            <main className="container mx-auto px-4 py-8 pb-3">{children}</main>
             <Footer />
           </Suspense>
         </ThemeProvider>

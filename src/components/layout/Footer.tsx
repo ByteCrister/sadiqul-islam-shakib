@@ -15,7 +15,7 @@ export default function Footer() {
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className="border-t border-neutral-200 dark:border-neutral-700"
     >
-      <div className="container mx-auto flex flex-col items-center justify-center h-20 px-4">
+      <div className="container mx-auto flex flex-col items-center justify-center px-4 py-6 md:py-4">
         {/* COPYRIGHT */}
         <motion.p
           initial={{ opacity: 0 }}
