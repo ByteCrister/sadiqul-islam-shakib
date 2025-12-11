@@ -137,7 +137,7 @@ export default function Cursor() {
   return (
     <>
       {/* Trail effect - memoized for better performance */}
-      {trails.map((trail, i) => (
+      {trails.map((trail) => (
         <motion.div
           key={trail.id}
           initial={{ opacity: 0.5, scale: 1 }}
