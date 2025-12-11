@@ -37,7 +37,7 @@ export const metadata: Metadata = {
       ])
     ),
   }),
-  metadataBase: new URL('https://sadiqulislamshakib.vercel.app'),
+  metadataBase: new URL('https://sadiqul-islam-shakib.vercel.app/'),
   robots: {
     index: true,
     follow: true,

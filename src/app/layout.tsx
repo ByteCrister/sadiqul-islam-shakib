@@ -9,6 +9,8 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/effect-coverflow'
 import Loading3DText from '@/components/others/Loading3DText';
+import { ProfileImagePath } from '@/utils/params/parameter.global';
+import Cursor from '@/components/global/Cursor';
 
 
 export const metadata: Metadata = {
@@ -17,14 +19,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Sadiqul Portfolio',
     description: 'Next.js & TypeScript developer crafting polished experiences.',
-    url: 'https://sadiqulislamshakib.vercel.app/',
-    images: [{ url: '/images/shakib.jpg', width: 1200, height: 630 }],
+    url: 'https://sadiqul-islam-shakib.vercel.app/',
+    images: [{ url: ProfileImagePath, width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Sadiqul Portfolio',
     description: 'Next.js & TypeScript developer crafting polished experiences.',
-    images: ['/images/shakib.jpg'],
+    images: [ProfileImagePath],
   },
 }
 
@@ -46,6 +48,7 @@ export default function RootLayout({
             <Header />
             <main className="container mx-auto px-4 py-8 pb-3">{children}</main>
             <Footer />
+            <Cursor />
           </Suspense>
         </ThemeProvider>
       </body>

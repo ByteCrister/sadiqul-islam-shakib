@@ -24,7 +24,7 @@ export const metadata: Metadata = {
       'Web Developer',
     ],
   }),
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL ?? ''),
+  metadataBase: new URL("https://sadiqul-islam-shakib.vercel.app/"),
 }
 
 export const viewport = {

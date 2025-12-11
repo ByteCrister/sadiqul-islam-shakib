@@ -120,3 +120,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Hide default cursor for custom cursor */
+* {
+  cursor: none !important;
+}
+
+@media (hover: none), (pointer: coarse) {
+  * {
+    cursor: auto !important;
+  }
+}
