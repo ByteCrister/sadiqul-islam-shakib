@@ -2,7 +2,7 @@
 // G:\Projects\sadiqul-islam-shakib\src\app\projects\[slug]\page.tsx
 import ProjectDetail from "@/components/project-details/ProjectDetail";
 import { notFound } from "next/navigation";
-import { getProjectBySlug } from "@/utils/params/parameter.projects";
+import { getAllProjectSlugs, getProjectBySlug } from "@/utils/params/parameter.projects";
 import { generatePageMetadata } from "@/utils/helper/metadata";
 import type { Metadata } from "next";
 
@@ -44,6 +44,16 @@ export const viewport = {
     { media: "(prefers-color-scheme: dark)", color: "#111111" },
   ],
 };
+
+export async function generateStaticParams() {
+  // This function should return an array of all the slugs you want to pre-render.
+  // For example, if you have a function `getAllProjectSlugs` that returns an array of slugs:
+  const slugs = getAllProjectSlugs(); // This function must be implemented.
+
+  return slugs.map((slug) => ({
+    slug: slug,
+  }));
+}
 
 export default async function Page({
   params,
