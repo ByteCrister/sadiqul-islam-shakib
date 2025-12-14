@@ -495,7 +495,7 @@ export function FullscreenImage({
                             height={height}
                             unoptimized
                             style={transformStyle}
-                            onLoadingComplete={() => {
+                            onLoad={() => {
                                 // next/image renders an <img> inside; find it
                                 const wrapper = innerRef.current;
                                 if (!wrapper) return;
