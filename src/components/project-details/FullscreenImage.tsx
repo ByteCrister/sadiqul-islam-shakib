@@ -221,6 +221,16 @@ export function FullscreenImage({
         }
     }, [scale, setScaleClamped, resetZoom]);
 
+     // Download helper
+     const onDownload = useCallback(() => {
+        const a = document.createElement('a');
+        a.href = src; // MUST be /images/xxx.png
+        a.download = filename ?? src.split('/').pop() ?? 'image';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    }, [src, filename]);
+
     // Keyboard shortcuts while fullscreen
     useEffect(() => {
         if (!isFullscreen) return;
@@ -251,11 +261,14 @@ export function FullscreenImage({
             } else if (e.key === 'ArrowDown') {
                 e.preventDefault();
                 setTranslate((t) => ({ x: t.x, y: t.y - 50 }));
-            }
+            } else if (e.key.toLowerCase() === 'd') {
+                e.preventDefault();
+                onDownload();
+              }
         };
         window.addEventListener('keydown', onKey, { passive: false });
         return () => window.removeEventListener('keydown', onKey);
-    }, [isFullscreen, zoomIn, zoomOut, resetZoom, closeFullscreen]);
+    }, [isFullscreen, zoomIn, zoomOut, resetZoom, closeFullscreen, onDownload]);
 
     // Touch: pinch to zoom and two-finger pan
     useEffect(() => {
@@ -323,17 +336,6 @@ export function FullscreenImage({
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [scale, translate.x, translate.y]);
-
-    // Download helper
-    const onDownload = useCallback(() => {
-        // create anchor and click
-        const a = document.createElement('a');
-        a.href = src;
-        a.download = filename || src.split('/').pop() || 'image';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-    }, [src, filename]);
 
     // Compose transform style
     const transformStyle: React.CSSProperties = {
