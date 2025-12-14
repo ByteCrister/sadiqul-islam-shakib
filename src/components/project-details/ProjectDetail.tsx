@@ -166,7 +166,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
                     </MotionLink>
                 </motion.div>
 
-                
+
                 {/* Warning Message */}
                 {project.warningMessage && (
                     <motion.div
@@ -198,7 +198,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
                                 Demo Credentials
                             </h3>
                         </div>
-                        
+
                         <div className="space-y-3">
                             {project.loginCredentials.email && (
                                 <div className="bg-white/60 dark:bg-neutral-800/60 p-3 rounded-lg">
@@ -223,7 +223,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
                                     </div>
                                 </div>
                             )}
-                            
+
                             {project.loginCredentials.password && (
                                 <div className="bg-white/60 dark:bg-neutral-800/60 p-3 rounded-lg">
                                     <label className="text-xs font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">
@@ -327,12 +327,11 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
                                 whileHover={{ scale: 1.02 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                             >
-                                <Image
+                                <FullscreenImage
                                     src={img}
                                     alt={`Screenshot ${idx + 1}`}
                                     width={600}
                                     height={400}
-                                    className="rounded-2xl object-cover transition-transform duration-500 group-hover:scale-105"
                                 />
                             </motion.div>
                         ))}
