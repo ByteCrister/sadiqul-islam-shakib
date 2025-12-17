@@ -26,14 +26,6 @@ export const metadata: Metadata = {
       'Full-Stack Developer'
     ],
   }),
-  metadataBase: new URL("https://sadiqul-islam-shakib.vercel.app/"),
-};
-
-export const viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#4f46e5" },
-    { media: "(prefers-color-scheme: dark)", color: "#111111" },
-  ],
 };
 
 const page = () => {

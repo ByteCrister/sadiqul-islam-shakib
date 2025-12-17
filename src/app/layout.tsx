@@ -14,21 +14,45 @@ import Cursor from '@/components/global/Cursor';
 
 
 export const metadata: Metadata = {
-  title: 'Sadiqul Portfolio',
+  metadataBase: new URL('https://sadiqul-islam-shakib.vercel.app'),
+
+  title: 'Sadiqul Islam Shakib Portfolio',
   description: 'Next.js & TypeScript developer crafting polished experiences.',
-  openGraph: {
-    title: 'Sadiqul Portfolio',
-    description: 'Next.js & TypeScript developer crafting polished experiences.',
-    url: 'https://sadiqul-islam-shakib.vercel.app/',
-    images: [{ url: ProfileImagePath, width: 1200, height: 630 }],
+
+  icons: {
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: '/apple-touch-icon.png',
+    shortcut: '/favicon.ico',
   },
+
+  manifest: '/site.webmanifest',
+
+  openGraph: {
+    title: 'Sadiqul Islam Shakib Portfolio',
+    description: 'Next.js & TypeScript developer crafting polished experiences.',
+    url: '/',
+    siteName: 'Sadiqul Islam Shakib Portfolio',
+    images: [
+      {
+        url: ProfileImagePath,
+        width: 1200,
+        height: 630,
+        alt: 'Sadiqul Islam Shakib Portfolio',
+      },
+    ],
+    type: 'website',
+  },
+
   twitter: {
     card: 'summary_large_image',
-    title: 'Sadiqul Portfolio',
+    title: 'Sadiqul Islam Shakib Portfolio',
     description: 'Next.js & TypeScript developer crafting polished experiences.',
     images: [ProfileImagePath],
   },
-}
+};
 
 export default function RootLayout({
   children,

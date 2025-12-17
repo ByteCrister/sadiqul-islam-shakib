@@ -6,11 +6,10 @@ type PageSEO = {
     description: string
     path: string
     image?: string
-    tags?: string[]            // ← new optional field
+    tags?: string[]
 }
 
 const SITE_NAME = 'Sadiqul Islam Shakib'
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL!
 const DEFAULT_OG_IMAGE = '/og-default.png'
 
 export function generatePageMetadata({
@@ -18,28 +17,39 @@ export function generatePageMetadata({
     description,
     path,
     image,
-    tags = [],                // default to empty array
+    tags = [],
 }: PageSEO): Metadata {
     const fullTitle = `${title} | ${SITE_NAME}`
-    const url = `${BASE_URL}${path}`
     const ogImage = image ?? DEFAULT_OG_IMAGE
 
     return {
         title: fullTitle,
         description,
-        keywords: tags,           // ← inject tags here
+        keywords: tags,
+
+        alternates: {
+            canonical: path,
+        },
+
         openGraph: {
             title: fullTitle,
             description,
-            url,
-            images: [{ url: ogImage, width: 1200, height: 630 }],
+            url: path,
+            images: [
+                {
+                    url: ogImage,
+                    width: 1200,
+                    height: 630,
+                },
+            ],
+            type: 'website',
         },
+
         twitter: {
             card: 'summary_large_image',
             title: fullTitle,
             description,
             images: [ogImage],
         },
-        alternates: { canonical: url },
     }
 }
