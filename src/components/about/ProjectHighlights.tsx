@@ -216,7 +216,7 @@ export default function ProjectHighlights({ projects }: ProjectHighlightsProps) 
                       {proj.description}
                     </p>
 
-                    {/* Tech Stack */}
+                    {/* Tech-Stack */}
                     {proj.tech?.length > 0 && (
                       <div className="flex flex-wrap gap-2 pt-2">
                         {proj.tech.slice(0, 4).map((tech, i) => (
