@@ -196,34 +196,57 @@ export const projects: Project[] = [
     warningMessage: "Do not change anything only for viewing."
   },
   {
-    slug: 'chatty',
-    title: 'Chatty',
+    slug: 'js-skill-gauge',
+    title: 's SkillGauge — "AI-powered JavaScript skill assessment with personalized insights"',
     description:
-      'A real-time chat application supporting multiple rooms, presence indicators, and emoji reactions.',
-    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Socket.IO'],
-    thumbnail: 'https://picsum.photos/300/200',
-    images: [
-      'https://picsum.photos/300/200',
-      'https://picsum.photos/300/200',
-      'https://picsum.photos/300/200'
+      'Js SkillGauge is an AI-powered JavaScript skill assessment. Answer 10 curated questions in 3 minutes and receive an ML-based skill level prediction (Beginner → Expert) with personalized focus-area recommendations — built by Sadiqul Islam Shakib (ByteCrister)."',
+    tech: [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "Framer Motion",
+      "Radix UI",
+      "shadcn/ui",
+      "Lucide React",
+      "React Icons",
+      "Random Forest ML Model (JS)",
     ],
-    liveUrl: 'https://chatty.example.com',
-    githubUrl: 'https://github.com/you/chatty',
-    category: 'Real-time Apps',
-    timeline: 'Aug 2023 – Sep 2023',
+    thumbnail: '/images/projects/js-skill-gauge/js-skill-gauge-1.png',
+    images: [
+      '/images/projects/js-skill-gauge/js-skill-gauge-1.png',
+      '/images/projects/js-skill-gauge/js-skill-gauge-2.png',
+      '/images/projects/js-skill-gauge/js-skill-gauge-3.png'
+    ],
+    liveUrl: 'https://js-skill-gauge.vercel.app/',
+    githubUrl: 'https://github.com/ByteCrister/js-skill-gauge',
+    category: 'AI / Developer Tool',
+    timeline: 'Feb 2026 – Feb 2026',
     features: [
-      'Multi-room chat with online/offline presence',
-      'Rich text and emoji support',
-      'Room-level access control'
+      "10 randomly sampled JavaScript questions from a pool of 150+ questions spanning Easy, Medium, and Hard difficulties",
+      "3-minute countdown timer with automatic submission on expiry",
+      "ML-powered skill level prediction: Beginner, Basic, Intermediate, Advanced, or Expert",
+      "Personalized focus-area recommendations derived from your weakest topics",
+      "One-question-at-a-time slider interface with Previous / Next navigation",
+      "Years of experience input via a combined slider (0–15) and free-text number field (0–50)",
+      "Anti-cheat layer: tab-switch detection, copy/cut/paste blocking, right-click prevention, PrintScreen blocking",
+      "Session invalidation after 3 detected rule violations",
+      "Per-question answer-duration tracking fed into the ML model as weighted features (AvgTime, WeightedTime)",
+      "Detailed post-submission breakdown: your answer vs. the correct answer for every question",
+      "Privacy-first: responses are processed locally and are never stored",
     ],
     challenges: [
-      'Handling a high volume of socket events',
-      'Designing a scalable namespace hierarchy'
+      "Exporting a Python-trained Random Forest model to a pure JavaScript module consumable by a Next.js API route with no external ML service",
+      "Building a reliable multi-signal anti-cheat layer (visibilitychange, blur, clipboard events, keyboard shortcuts) without false positives",
+      "Auto-filling unanswered questions with a deterministic wrong option before auto-submitting when the timer expires",
+      "Accurately capturing per-question answer durations using entry-time stamps for ML feature engineering",
     ],
     learnings: [
-      'Socket.IO scaling strategies',
-      'Creating a resilient reconnect logic'
-    ]
+      "Integrating a serialized ML model directly inside a Next.js serverless API route",
+      "Constructing weighted feature vectors (difficulty-encoded scores, AvgTime, WeightedTime) for a Random Forest classifier",
+      "Composing behavioral monitoring hooks (tab, clipboard, keyboard) that clean up correctly on unmount",
+      "Building animated, accessible quiz UIs by combining Framer Motion with shadcn/ui and Radix UI primitives",
+    ],
   },
   {
     slug: 'photo-portfolio',
