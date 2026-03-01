@@ -197,7 +197,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'js-skill-gauge',
-    title: 's SkillGauge — "AI-powered JavaScript skill assessment with personalized insights"',
+    title: 'Js SkillGauge — "AI-powered JavaScript skill assessment with personalized insights"',
     description:
       'Js SkillGauge is an AI-powered JavaScript skill assessment. Answer 10 curated questions in 3 minutes and receive an ML-based skill level prediction (Beginner → Expert) with personalized focus-area recommendations — built by Sadiqul Islam Shakib (ByteCrister)."',
     tech: [
