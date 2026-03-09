@@ -7,7 +7,7 @@ import { useTypewriter, Cursor } from "react-simple-typewriter";
 import { HeroWords } from "@/utils/params/parameter.hero";
 import { ProfileImagePath, userName } from "@/utils/params/parameter.global";
 import { skills } from "@/utils/params/parameter.about";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 
 const MotionLink = motion(Link);
 
@@ -40,17 +40,17 @@ export default function Hero() {
     },
   };
 
-  // Skills container + item variants for staggered skill animations
-  const skillsContainer: Variants = {
-    hidden: {},
+  // Variants for category containers (fade up)
+  const categoryVariants: Variants = {
+    hidden: { y: 15, opacity: 0 },
     show: {
-      transition: {
-        staggerChildren: 0.06,
-        delayChildren: 0.6,
-      },
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.5, ease: "easeOut" },
     },
   };
 
+  // Skill item variants (used inside each category)
   const skillItem: Variants = {
     hidden: { opacity: 0, y: 8, scale: 0.95 },
     show: {
@@ -91,6 +91,20 @@ export default function Hero() {
   function handleContainerLeave() {
     setPaused(false);
   }
+
+  // Group skills by category, preserving original indices for refs and active index
+  const groupedSkills = useMemo(() => {
+    const groups: { category: string; skills: { skill: typeof skills[0]; originalIndex: number }[] }[] = [];
+    skills.forEach((skill, index) => {
+      let group = groups.find((g) => g.category === skill.category);
+      if (!group) {
+        group = { category: skill.category, skills: [] };
+        groups.push(group);
+      }
+      group.skills.push({ skill, originalIndex: index });
+    });
+    return groups;
+  }, []);
 
   return (
     <section
@@ -159,42 +173,54 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Skills Section */}
+      {/* Skills Section - Grouped by Category */}
       <motion.div
-        variants={skillsContainer}
         initial="hidden"
         animate="show"
         ref={skillsContainerRef}
         onMouseEnter={handleContainerEnter}
         onMouseLeave={handleContainerLeave}
-        className="mt-8 relative flex flex-wrap justify-center gap-3 max-w-xl mx-auto"
+        className="mt-8 relative max-w-xl mx-auto space-y-6"
       >
-        {skills.map((skill, idx) => {
-          const Icon = skill.Icon;
-          const isActive = idx === activeIndex;
+        {groupedSkills.map((group) => (
+          <motion.div
+            key={group.category}
+            variants={categoryVariants}
+            className="space-y-2"
+          >
+            <h4 className="text-sm font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
+              {group.category}
+            </h4>
+            <div className="flex flex-wrap justify-center gap-3">
+              {group.skills.map(({ skill, originalIndex }) => {
+                const Icon = skill.Icon;
+                const isActive = originalIndex === activeIndex;
 
-          return (
-            <motion.div
-              key={skill.name}
-              variants={skillItem}
-              ref={(el) => { skillRefs.current[idx] = el; }}
-              onMouseEnter={() => handleSkillEnter(idx)}
-              onMouseLeave={handleSkillLeave}
-              // animate scale and lift for the active item, reset for others
-              animate={isActive ? { scale: 1.08, y: -6 } : { scale: 1, y: 0 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              // use Tailwind classes to change border color when active; transition-colors for smooth border change
-              className={`flex items-center gap-2 px-3 py-2 bg-neutral-100 dark:bg-neutral-800
-                          rounded-lg border transition-colors duration-300 relative z-10
-                          ${isActive ? "border-primary dark:border-primary shadow-lg" : "border-neutral-200 dark:border-neutral-700"}`}
-            >
-              <Icon className={`w-4 h-4 ${isActive ? "text-primary" : "text-primary"}`} />
-              <span className={`text-sm font-medium ${isActive ? "text-neutral-900 dark:text-neutral-100" : "text-neutral-700 dark:text-neutral-300"}`}>
-                {skill.name}
-              </span>
-            </motion.div>
-          );
-        })}
+                return (
+                  <motion.div
+                    key={skill.name}
+                    variants={skillItem}
+                    ref={(el) => {
+                      skillRefs.current[originalIndex] = el;
+                    }}
+                    onMouseEnter={() => handleSkillEnter(originalIndex)}
+                    onMouseLeave={handleSkillLeave}
+                    animate={isActive ? { scale: 1.08, y: -6 } : { scale: 1, y: 0 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className={`flex items-center gap-2 px-3 py-2 bg-neutral-100 dark:bg-neutral-800
+                                rounded-lg border transition-colors duration-300 relative z-10
+                                ${isActive ? "border-primary dark:border-primary shadow-lg" : "border-neutral-200 dark:border-neutral-700"}`}
+                  >
+                    <Icon className={`w-4 h-4 ${isActive ? "text-primary" : "text-primary"}`} />
+                    <span className={`text-sm font-medium ${isActive ? "text-neutral-900 dark:text-neutral-100" : "text-neutral-700 dark:text-neutral-300"}`}>
+                      {skill.name}
+                    </span>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
+        ))}
       </motion.div>
     </section>
   );

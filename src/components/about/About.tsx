@@ -81,6 +81,16 @@ export default function About() {
         }
     }, [isStatsInView, motionValues]);
 
+    // Group skills by category
+    const groupedSkills = useMemo(() => {
+        return skills.reduce((acc, skill) => {
+            const { category } = skill;
+            if (!acc[category]) acc[category] = [];
+            acc[category].push(skill);
+            return acc;
+        }, {} as Record<string, typeof skills>);
+    }, []);
+
     return (
         <section className="relative overflow-hidden px-6 py-20 bg-gradient-to-br from-white to-neutral-100 dark:from-neutral-900 dark:to-neutral-800 rounded-2xl">
             <motion.div className="absolute top-10 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-3xl -z-10" />
@@ -133,7 +143,7 @@ export default function About() {
                 ))}
             </motion.div>
 
-            {/* core skills */}
+            {/* Core Skills - Categorized */}
             <motion.div
                 variants={container}
                 initial="hidden"
@@ -147,24 +157,38 @@ export default function About() {
                 >
                     Core Skills
                 </motion.h3>
-                <motion.div
-                    variants={container}
-                    className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6"
-                >
-                    {skills.map(({ name, Icon }) => (
-                        <motion.div
-                            key={name}
+
+                {Object.entries(groupedSkills).map(([category, skillsInCategory]) => (
+                    <div key={category} className="mb-8">
+                        {/* Category heading */}
+                        <motion.h4
                             variants={fadeUp}
-                            whileHover={{ scale: 1.05 }}
-                            className="bg-neutral-50 dark:bg-neutral-700 rounded-xl p-4 flex flex-col items-center gap-2"
+                            className="text-xl font-medium mb-3 text-neutral-700 dark:text-neutral-300 border-b border-neutral-200 dark:border-neutral-700 pb-1"
                         >
-                            <Icon size={32} className="text-primary" />
-                            <span className="text-neutral-800 dark:text-neutral-100 font-medium">
-                                {name}
-                            </span>
+                            {category}
+                        </motion.h4>
+
+                        {/* Skills grid with staggered children */}
+                        <motion.div
+                            variants={container}
+                            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6"
+                        >
+                            {skillsInCategory.map(({ name, Icon }) => (
+                                <motion.div
+                                    key={name}
+                                    variants={fadeUp}
+                                    whileHover={{ scale: 1.05 }}
+                                    className="bg-neutral-50 dark:bg-neutral-700 rounded-xl p-4 flex flex-col items-center gap-2"
+                                >
+                                    <Icon size={32} className="text-primary" />
+                                    <span className="text-neutral-800 dark:text-neutral-100 font-medium">
+                                        {name}
+                                    </span>
+                                </motion.div>
+                            ))}
                         </motion.div>
-                    ))}
-                </motion.div>
+                    </div>
+                ))}
             </motion.div>
 
             {/* project highlights */}

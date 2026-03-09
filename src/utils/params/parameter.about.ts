@@ -1,5 +1,5 @@
 import { Award, BookOpen, Briefcase, Calendar, Code, GraduationCap, Star } from "lucide-react";
-import { FaCube, FaDatabase } from "react-icons/fa";
+import { FaBolt, FaCube, FaDatabase, FaJava } from "react-icons/fa";
 import {
     SiReact,
     SiNextdotjs,
@@ -12,23 +12,35 @@ import {
     SiEjs,
     SiAxios,
     SiMysql,
+    SiC,
+    SiPython,
+    SiPostman,
 } from "react-icons/si";
 
 export const skills = [
-    { name: 'HTML', Icon: SiHtml5 },
-    { name: 'CSS', Icon: SiCss3 },
-    { name: 'JavaScript', Icon: SiJavascript },
-    { name: 'EJS', Icon: SiEjs },
-    { name: 'Axios', Icon: SiAxios },
-    { name: 'SQL', Icon: SiMysql },
-    { name: 'React', Icon: SiReact },
-    { name: 'Next.js', Icon: SiNextdotjs },
-    { name: 'TypeScript', Icon: SiTypescript },
-    { name: 'MongoDB', Icon: SiMongodb },
-    { name: 'Mongoose', Icon: FaDatabase },
-    { name: 'Tailwind CSS', Icon: SiTailwindcss },
-    { name: 'shadcn/ui', Icon: FaCube }
-]
+    { name: 'HTML', Icon: SiHtml5, category: 'Frontend' },
+    { name: 'CSS', Icon: SiCss3, category: 'Frontend' },
+    { name: 'JavaScript', Icon: SiJavascript, category: 'Frontend' },
+    { name: 'React', Icon: SiReact, category: 'Frontend' },
+    { name: 'Next.js', Icon: SiNextdotjs, category: 'Frontend' },
+    { name: 'Tailwind CSS', Icon: SiTailwindcss, category: 'Frontend' },
+    { name: 'shadcn/ui', Icon: FaCube, category: 'Frontend' },
+
+    { name: 'EJS', Icon: SiEjs, category: 'Backend' },
+    { name: 'Axios', Icon: SiAxios, category: 'Backend' },
+
+    { name: 'MongoDB', Icon: SiMongodb, category: 'Database' },
+    { name: 'Mongoose', Icon: FaDatabase, category: 'Database' },
+    { name: 'SQL', Icon: SiMysql, category: 'Database' },
+
+    { name: 'C', Icon: SiC, category: 'Programming' },
+    { name: 'Java', Icon: FaJava, category: 'Programming' },
+    { name: 'Python', Icon: SiPython, category: 'Programming' },
+    { name: 'TypeScript', Icon: SiTypescript, category: 'Programming' },
+
+    { name: 'Postman', Icon: SiPostman, category: 'Tools' },
+    { name: 'Thunder Client', Icon: FaBolt, category: 'Tools' }
+];
 
 export const experiences = [
     {
