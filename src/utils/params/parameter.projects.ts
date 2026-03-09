@@ -249,30 +249,49 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'photo-portfolio',
-    title: 'Photo Portfolio',
-    description:
-      'A responsive photography portfolio with lazy-loaded galleries, lightbox previews, and SEO optimizations.',
-    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Cloudinary'],
-    thumbnail: 'https://picsum.photos/300/200',
-    images: ['https://picsum.photos/300/200', 'https://picsum.photos/300/200'],
-    liveUrl: 'https://photoport.example.com',
-    githubUrl: 'https://github.com/you/photo-portfolio',
-    category: 'Web Apps',
-    timeline: 'Oct 2023',
+    slug: "pong-game-js",
+    title: "Classic PONG Game",
+    description: "A classic PONG game implementation built as my first JavaScript project. This project explores fundamental game development concepts including collision detection, ball physics, and AI-controlled paddle movement. The game features smooth animations, score tracking, and increasing difficulty as the game progresses.",
+    tech: ["JavaScript", "HTML5", "CSS3"],
+    liveUrl: "https://bytecrister.github.io/PONG-Game/",
+    githubUrl: "https://github.com/ByteCrister/PONG-Game",
+    category: "game",
+    thumbnail: "/images/projects/pong-game/pong-game-1.png", 
+    fullScreen: "/images/projects/pong-game/pong-game-1.png",
+    images: [
+      "/images/projects/pong-game/pong-game-1.png",
+    ],
+    timeline: "Completed in 5 days (Feb 2024)",
+
     features: [
-      'Responsive Masonry grid layout',
-      'Lightbox preview with keyboard navigation',
-      'Pre-rendered SEO-friendly pages'
+      "Realistic ball physics with angle-based directional changes",
+      "Collision detection system for walls and paddles",
+      "AI opponent with auto ball tracking capability",
+      "Score tracking for both player and computer",
+      "Ball speed progression system for increased difficulty",
+      "Keyboard controls for player paddle (up/down arrows)",
+      "Game state management (start, play, score)"
     ],
+
     challenges: [
-      'Implementing SSR-friendly image optimization',
-      'Balancing quality and performance for galleries'
+      "Implementing accurate ball bounce angles based on paddle hit position",
+      "Creating smooth paddle movement without input lag",
+      "Developing AI logic that feels challenging but beatable",
+      "Handling frame-rate independent ball movement",
+      "Debugging collision detection edge cases at high speeds"
     ],
+
     learnings: [
-      'Next/Image advanced configuration',
-      'Accessibility considerations for media galleries'
-    ]
+      "Understanding requestAnimationFrame for smooth animations",
+      "Implementing vector-based movement for game objects",
+      "Working with canvas coordinate systems and transformations",
+      "Learning game loop architecture and state management",
+      "Developing problem-solving skills through debugging physics",
+      "Gaining confidence in JavaScript fundamentals through hands-on practice"
+    ],
+
+    loginCredentials: undefined,
+    warningMessage: undefined
   },
   {
     slug: 'recipe-book',
