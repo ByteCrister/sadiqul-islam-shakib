@@ -7,7 +7,7 @@ import {
     SiTailwindcss,
     SiMongodb,
     SiHtml5,
-    SiCss3,
+    SiCss,
     SiJavascript,
     SiEjs,
     SiAxios,
@@ -23,7 +23,7 @@ import {
 
 export const skills = [
     { name: 'HTML', Icon: SiHtml5, category: 'Frontend' },
-    { name: 'CSS', Icon: SiCss3, category: 'Frontend' },
+    { name: 'CSS', Icon: SiCss, category: 'Frontend' },
     { name: 'JavaScript', Icon: SiJavascript, category: 'Frontend' },
     { name: 'React', Icon: SiReact, category: 'Frontend' },
     { name: 'Next.js', Icon: SiNextdotjs, category: 'Frontend' },
