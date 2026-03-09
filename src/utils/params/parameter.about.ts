@@ -15,6 +15,10 @@ import {
     SiC,
     SiPython,
     SiPostman,
+    SiGit,
+    SiGithub,
+    SiNodedotjs,
+    SiExpress,
 } from "react-icons/si";
 
 export const skills = [
@@ -26,6 +30,8 @@ export const skills = [
     { name: 'Tailwind CSS', Icon: SiTailwindcss, category: 'Frontend' },
     { name: 'shadcn/ui', Icon: FaCube, category: 'Frontend' },
 
+    { name: 'Node.js', Icon: SiNodedotjs, category: 'Backend' },
+    { name: 'Express.js', Icon: SiExpress, category: 'Backend' },
     { name: 'EJS', Icon: SiEjs, category: 'Backend' },
     { name: 'Axios', Icon: SiAxios, category: 'Backend' },
 
@@ -39,7 +45,9 @@ export const skills = [
     { name: 'TypeScript', Icon: SiTypescript, category: 'Programming' },
 
     { name: 'Postman', Icon: SiPostman, category: 'Tools' },
-    { name: 'Thunder Client', Icon: FaBolt, category: 'Tools' }
+    { name: 'Thunder Client', Icon: FaBolt, category: 'Tools' },
+    { name: 'Git', Icon: SiGit, category: 'Tools' },
+    { name: 'GitHub', Icon: SiGithub, category: 'Tools' }
 ];
 
 export const experiences = [
