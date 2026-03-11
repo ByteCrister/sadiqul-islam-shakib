@@ -555,7 +555,7 @@ export function FullscreenImage({
             {/* Fullscreen container */}
             <div
                 ref={fsRef}
-                className={`fixed inset-0 z-[9999] bg-black ${isFullscreen ? 'flex' : 'hidden'} flex-col`}
+                className={`fixed inset-0 z-9999 bg-black ${isFullscreen ? 'flex' : 'hidden'} flex-col`}
                 aria-hidden={!isFullscreen}
                 role="dialog"
                 aria-modal="true"
@@ -563,8 +563,8 @@ export function FullscreenImage({
                 tabIndex={-1} // make focusable
             >
                 {/* Top controls */}
-                <div className="fixed top-0 left-0 right-0 z-[10001] pointer-events-none">
-                    <div className="flex justify-end gap-2 p-4 bg-gradient-to-b from-black/70 to-transparent pointer-events-auto">
+                <div className="fixed top-0 left-0 right-0 z-10001 pointer-events-none">
+                    <div className="flex justify-end gap-2 p-4 bg-linear-to-b from-black/70 to-transparent pointer-events-auto">
                         <button
                             onClick={zoomOut}
                             aria-label="Zoom out (minus)"
@@ -650,6 +650,7 @@ export function FullscreenImage({
                             alt={alt}
                             width={width}
                             height={height}
+                            loading="lazy"
                             unoptimized
                             style={transformStyle}
                             onLoadingComplete={onImageLoad}

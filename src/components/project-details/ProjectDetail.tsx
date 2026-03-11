@@ -74,13 +74,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
                 animate="visible"
                 exit="exit"
                 variants={container}
-                className="max-w-6xl mx-auto px-6 py-16 bg-gradient-to-br from-white/60 to-white/30 dark:from-neutral-900/60 dark:to-neutral-800/30 backdrop-blur-md border border-white/30 dark:border-neutral-700/40 rounded-3xl shadow-2xl"
+                className="max-w-6xl mx-auto px-6 py-16 bg-linear-to-br from-white/60 to-white/30 dark:from-neutral-900/60 dark:to-neutral-800/30 backdrop-blur-md border border-white/30 dark:border-neutral-700/40 rounded-3xl shadow-2xl"
             >
                 {/* Title */}
                 <motion.h1
                     variants={fadeIn}
                     custom={0}
-                    className="text-5xl font-extrabold text-center bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent"
+                    className="text-5xl font-extrabold text-center bg-linear-to-r from-primary to-purple-600 bg-clip-text text-transparent"
                 >
                     {project.title}
                 </motion.h1>
@@ -129,7 +129,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
                             variants={fadeIn}
                             custom={i}
                             whileHover={{ scale: 1.05 }}
-                            className="px-4 py-1.5 text-xs font-medium rounded-full bg-gradient-to-r from-primary/10 to-purple-500/10 text-primary dark:text-purple-300 shadow-sm border border-primary/20"
+                            className="px-4 py-1.5 text-xs font-medium rounded-full bg-linear-to-r from-primary/10 to-purple-500/10 text-primary dark:text-purple-300 shadow-sm border border-primary/20"
                         >
                             {tech}
                         </motion.span>
@@ -174,8 +174,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
                         custom={2}
                         className="mt-6 max-w-3xl mx-auto"
                     >
-                        <div className="flex items-start gap-3 p-4 rounded-xl bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border border-yellow-200 dark:border-yellow-700/50 shadow-sm">
-                            <TriangleAlert className="w-5 h-5 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
+                        <div className="flex items-start gap-3 p-4 rounded-xl bg-linear-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border border-yellow-200 dark:border-yellow-700/50 shadow-sm">
+                            <TriangleAlert className="w-5 h-5 text-yellow-600 dark:text-yellow-400 shrink-0 mt-0.5" />
                             <p className="text-sm text-yellow-800 dark:text-yellow-200 font-medium">
                                 {project.warningMessage}
                             </p>
@@ -188,7 +188,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
                     <motion.div
                         variants={fadeIn}
                         custom={8}
-                        className="mt-8 max-w-xl mx-auto bg-gradient-to-br from-white/50 to-white/10 dark:from-neutral-800/40 dark:to-neutral-900/30 p-6 rounded-2xl shadow-xl border border-white/20 dark:border-neutral-700/30 backdrop-blur-lg"
+                        className="mt-8 max-w-xl mx-auto bg-linear-to-br from-white/50 to-white/10 dark:from-neutral-800/40 dark:to-neutral-900/30 p-6 rounded-2xl shadow-xl border border-white/20 dark:border-neutral-700/30 backdrop-blur-lg"
                     >
                         <div className="flex items-center gap-3 mb-4">
                             <div className="p-2 rounded-xl bg-white/70 dark:bg-neutral-800/70 shadow-sm">
@@ -276,7 +276,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
                             key={section}
                             variants={fadeIn}
                             custom={i + 8}
-                            className="mt-14 bg-gradient-to-br from-white/50 to-white/10 dark:from-neutral-800/40 dark:to-neutral-900/30 p-6 rounded-2xl shadow-xl border border-white/20 dark:border-neutral-700/30 backdrop-blur-lg"
+                            className="mt-14 bg-linear-to-br from-white/50 to-white/10 dark:from-neutral-800/40 dark:to-neutral-900/30 p-6 rounded-2xl shadow-xl border border-white/20 dark:border-neutral-700/30 backdrop-blur-lg"
                         >
                             <div className="flex items-center gap-3 mb-4">
                                 <div className="p-2 rounded-xl bg-white/70 dark:bg-neutral-800/70 shadow-sm">
