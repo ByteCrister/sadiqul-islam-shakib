@@ -53,7 +53,7 @@ export default function Header() {
                                     {label}
                                 </motion.span>
                                 <span
-                                    className={`absolute bottom-0 left-0 right-0 h-[2px] bg-primary
+                                    className={`absolute bottom-0 left-0 right-0 h-0.5 bg-primary
                                                 transition-transform duration-300 ease-in-out
                                                 ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'} origin-left`}
                                 />
@@ -68,7 +68,7 @@ export default function Header() {
                         whileHover={{ y: -2 }}
                         whileTap={{ scale: 0.95 }}
                     >
-                        <Download className="w-4 h-4" /> Download CV
+                        <Download className="w-4 h-4" /> Resume
                     </motion.a>
 
                     {mounted && (
@@ -126,7 +126,7 @@ export default function Header() {
                                     dark:bg-gray-500 dark:text-gray-100 dark:hover:bg-primary/35 mx-auto"
                                     onClick={() => setMenuOpen(false)}
                                 >
-                                    <Download className="w-4 h-4" /> Download Resume
+                                    <Download className="w-4 h-4" /> Resume
                                 </Link>
                             </li>
                             <li>
