@@ -126,7 +126,7 @@ export default function Header() {
                                     dark:bg-gray-500 dark:text-gray-100 dark:hover:bg-primary/35 mx-auto"
                                     onClick={() => setMenuOpen(false)}
                                 >
-                                    <Download className="w-4 h-4" /> Download CV
+                                    <Download className="w-4 h-4" /> Download Resume
                                 </Link>
                             </li>
                             <li>

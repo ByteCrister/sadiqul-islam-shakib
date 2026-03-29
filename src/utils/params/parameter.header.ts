@@ -14,4 +14,4 @@ export const NavWords = [
     'Lifelong Learner',
 ];
 
-export const DownloadCvPath = '/assets/sadiqul-islam-shakib-cv.pdf';
+export const DownloadCvPath = '/assets/sadiqul-islam-shakib-resume.pdf';
