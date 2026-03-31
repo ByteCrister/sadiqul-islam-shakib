@@ -249,6 +249,84 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "gadget-it",
+    title: "Gadget IT",
+    description: "A full-stack e-commerce platform for gadgets and PC components, featuring a comprehensive admin dashboard. Developed as part of Project Work 2 at North East University Bangladesh.",
+    tech: ["React.js", "Express.js", "MySQL", "JavaScript", "HTML5", "CSS3", "Axios", "Node.js"],
+    // liveUrl: "https://gadget-it.vercel.app", // From the GitHub repo's About section
+    githubUrl: "https://github.com/ByteCrister/Gadget-IT.com",
+    category: "Full-Stack E-Commerce",
+    thumbnail: "/images/projects/gadget-it/img-1.png", // Using the first image as thumbnail
+    images: [
+      "/images/projects/gadget-it/img-1.png",
+      "/images/projects/gadget-it/img-2.png",
+      "/images/projects/gadget-it/img-3.png",
+      "/images/projects/gadget-it/img-4.png",
+      "/images/projects/gadget-it/img-5.png",
+      "/images/projects/gadget-it/img-6.png",
+      "/images/projects/gadget-it/img-7.png",
+      "/images/projects/gadget-it/img-8.png",
+      "/images/projects/gadget-it/img-9.png",
+      "/images/projects/gadget-it/img-10.png",
+      "/images/projects/gadget-it/img-11.png",
+      "/images/projects/gadget-it/img-12.png",
+      "/images/projects/gadget-it/img-13.png",
+      "/images/projects/gadget-it/img-14.png",
+      "/images/projects/gadget-it/img-15.png",
+      "/images/projects/gadget-it/img-16.png",
+      "/images/projects/gadget-it/img-17.png",
+      "/images/projects/gadget-it/img-18.png",
+      "/images/projects/gadget-it/img-19.png",
+      "/images/projects/gadget-it/img-20.png",
+      "/images/projects/gadget-it/img-21.png",
+      "/images/projects/gadget-it/img-22.png",
+      "/images/projects/gadget-it/img-23.png",
+      "/images/projects/gadget-it/img-24.png",
+      "/images/projects/gadget-it/img-25.png",
+      "/images/projects/gadget-it/img-26.png",
+      "/images/projects/gadget-it/img-27.png",
+      "/images/projects/gadget-it/img-28.png",
+      "/images/projects/gadget-it/img-29.png",
+      "/images/projects/gadget-it/img-30.png",
+      "/images/projects/gadget-it/img-31.png",
+      "/images/projects/gadget-it/img-32.png"
+    ],
+    timeline: "Jul 2024 – Dec 2024",
+    features: [
+      "User authentication with hashed passwords and email confirmation via nodemailer",
+      "Product search, filtering, sorting, and pagination",
+      "Shopping cart management",
+      "User ratings and reviews for products",
+      "Question and answer section for products",
+      "Dynamic pricing based on demand and promotions",
+      "Responsive design",
+      "Comprehensive admin dashboard with 8 main sections: Dashboard, Inventory, Production, Orders, Reports, Users, Support, and Settings",
+      "Product and order management for admins",
+      "Image upload and display",
+      "Dynamic product advertising system"
+    ],
+    challenges: [
+      "Needs better design integration",
+      "Dark mode is not integrated (designed for light mode only)",
+      "Inefficient use of local storage in some areas",
+      "Requires a more stable API connection"
+    ],
+    learnings: [
+      "React Router for navigation",
+      "React Hooks for state and side effects",
+      "State management with useReducer and Context API",
+      "Maintaining a clean and scalable folder structure",
+      "Efficient API management with Axios",
+      "Importance of robust error handling and production-level code quality",
+      "Selecting the right SDLC model and gathering requirements based on time constraints"
+    ],
+    // loginCredentials: {
+    //   email: "admin@gmail.com",
+    //   password: "aA1!123"
+    // },
+    warningMessage: "This is my first React project – the code is a reflection of my learning journey. Please use the demo account responsibly."
+  },
+  {
     slug: "pong-game-js",
     title: "Classic PONG Game",
     description: "A classic PONG game implementation built as my first JavaScript project. This project explores fundamental game development concepts including collision detection, ball physics, and AI-controlled paddle movement. The game features smooth animations, score tracking, and increasing difficulty as the game progresses.",
@@ -256,7 +334,7 @@ export const projects: Project[] = [
     liveUrl: "https://bytecrister.github.io/PONG-Game/",
     githubUrl: "https://github.com/ByteCrister/PONG-Game",
     category: "game",
-    thumbnail: "/images/projects/pong-game/pong-game-1.png", 
+    thumbnail: "/images/projects/pong-game/pong-game-1.png",
     fullScreen: "/images/projects/pong-game/pong-game-1.png",
     images: [
       "/images/projects/pong-game/pong-game-1.png",
@@ -293,32 +371,6 @@ export const projects: Project[] = [
     loginCredentials: undefined,
     warningMessage: undefined
   },
-  {
-    slug: 'recipe-book',
-    title: 'Recipe Book',
-    description:
-      'A collaborative cooking app where users share recipes, build meal plans, and generate shopping lists.',
-    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Prisma', 'GraphQL'],
-    thumbnail: 'https://picsum.photos/300/200',
-    images: ['https://picsum.photos/300/200', 'https://picsum.photos/300/200'],
-    liveUrl: 'https://recipebook.example.com',
-    githubUrl: 'https://github.com/you/recipe-book',
-    category: 'Food & Cooking',
-    timeline: 'Nov 2023 – Jan 2024',
-    features: [
-      'Recipe creation and editing workflows',
-      'Meal planning calendar',
-      'Auto-generated shopping lists'
-    ],
-    challenges: [
-      'Designing a flexible GraphQL schema',
-      'Managing collaborative edits in real time'
-    ],
-    learnings: [
-      'Advanced Prisma relations and migrations',
-      'Implementing collaborative data structures'
-    ]
-  }
 ]
 
 export function getAllProjects(): Project[] {
