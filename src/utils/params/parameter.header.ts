@@ -14,4 +14,4 @@ export const NavWords = [
     'Lifelong Learner',
 ];
 
-export const DownloadCvPath = '/assets/resumes/resume-of-sadiqul-islam-shakib.pdf';
+export const ResumeSharableLink = 'https://drive.google.com/file/d/1NQM9u5uvxsYOTFarlQ1GCeviHp5Hq0b4/view?usp=drive_link';

@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sun, Moon, Download, Menu, X } from 'lucide-react';
 import { Cursor, useTypewriter } from 'react-simple-typewriter';
-import { DownloadCvPath, navItems, NavWords } from '@/utils/params/parameter.header';
+import { ResumeSharableLink, navItems, NavWords } from '@/utils/params/parameter.header';
 import { usePathname } from 'next/navigation';
 
 export default function Header() {
@@ -62,8 +62,9 @@ export default function Header() {
                     })}
 
                     <motion.a
-                        href={DownloadCvPath}
-                        download
+                        href={ResumeSharableLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-primary text-white rounded-full shadow hover:shadow-lg hover:bg-primary/90 transition dark:bg-gray-500 dark:text-gray-100 dark:hover:bg-primary/35"
                         whileHover={{ y: -2 }}
                         whileTap={{ scale: 0.95 }}
@@ -119,8 +120,9 @@ export default function Header() {
                             ))}
                             <li className="flex justify-center">
                                 <Link
-                                    href={DownloadCvPath}
-                                    download
+                                    href={ResumeSharableLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-primary text-white 
                                     rounded-full shadow hover:shadow-lg hover:bg-primary/90 transition 
                                     dark:bg-gray-500 dark:text-gray-100 dark:hover:bg-primary/35 mx-auto"
