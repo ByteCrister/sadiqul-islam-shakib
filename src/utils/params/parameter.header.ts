@@ -14,4 +14,4 @@ export const NavWords = [
     'Lifelong Learner',
 ];
 
-export const ResumeSharableLink = 'https://drive.google.com/file/d/1NQM9u5uvxsYOTFarlQ1GCeviHp5Hq0b4/view?usp=drive_link';
+export const ResumeSharableLink = 'https://drive.google.com/file/d/1EaXIeG8Ig5F5e-i2AqIXAKmI6Xv3bnWz/view?usp=drive_link';
