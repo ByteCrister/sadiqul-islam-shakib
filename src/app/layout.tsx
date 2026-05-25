@@ -1,6 +1,6 @@
-import './globals.css';
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import { ThemeProvider } from 'next-themes';
+import './globals.css';
 import React, { Suspense } from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -11,6 +11,7 @@ import 'swiper/css/effect-coverflow'
 import Loading3DText from '@/components/others/Loading3DText';
 import { ProfileImagePath } from '@/utils/params/parameter.global';
 import Cursor from '@/components/global/Cursor';
+import SmoothScroll from '@/components/global/SmoothScroll';
 
 
 export const metadata: Metadata = {
@@ -69,10 +70,12 @@ export default function RootLayout({
           disableTransitionOnChange={true}
         >
           <Suspense fallback={<Loading3DText />}>
+          <SmoothScroll>
             <Header />
             <main className="container mx-auto px-4 py-8 pb-3">{children}</main>
             <Footer />
             <Cursor />
+            </SmoothScroll>
           </Suspense>
         </ThemeProvider>
       </body>
