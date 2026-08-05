@@ -16,9 +16,10 @@ interface HeaderProps {
 
 const getResumeLink = (url?: string | null) => {
     if (!url) return '#';
-    // Cloudinary 'raw' PDFs force a download due to Content-Disposition header.
-    // We route them through Google Docs Viewer to display them inline in a new tab.
-    if (url.includes('/raw/upload/') && url.endsWith('.pdf')) {
+    // Cloudinary 'raw' resource URLs force a download via Content-Disposition header.
+    // They also don't include a .pdf extension in the URL (e.g. "file_iopykt").
+    // Route all raw Cloudinary uploads through Google Docs Viewer to show inline.
+    if (url.includes('/raw/upload/')) {
         return `https://docs.google.com/viewer?url=${encodeURIComponent(url)}`;
     }
     return url;

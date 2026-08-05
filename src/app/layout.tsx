@@ -63,6 +63,8 @@ export default async function RootLayout({
 }) {
   const { layoutUser, activeResume, footerSocialLinks } = await getLayoutData();
 
+  console.log(activeResume)
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 font-sans">

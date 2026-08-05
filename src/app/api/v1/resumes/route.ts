@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { resume, asset, assetFile } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, not } from "drizzle-orm";
 import type {
   DResume,
   DAsset,
@@ -89,9 +89,15 @@ export async function POST(req: Request) {
       .values({
         assetId: body.assetId,
         label: body.label,
-        isActive: false, // Default to inactive, let user activate it explicitly
+        isActive: true, // New upload is automatically set as the active resume
       })
       .returning();
+
+    // Deactivate all other resumes now that the new one is active
+    await db
+      .update(resume)
+      .set({ isActive: false })
+      .where(not(eq(resume.id, inserted.id)));
 
     // Re-fetch with asset joins to match GET response format
     const rows = await db
