@@ -2,10 +2,15 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { userName } from '@/utils/params/parameter.global';
-import { socials } from '@/utils/params/parameter.footer';
+import type { DSocialLink } from '@/types/dashboard.types';
+import DynamicIcon from '../global/DynamicIcon';
 
-export default function Footer() {
+interface FooterProps {
+  userName?: string | null;
+  socialLinks?: DSocialLink[];
+}
+
+export default function Footer({ userName, socialLinks = [] }: FooterProps) {
   const year = new Date().getFullYear();
 
   return (
@@ -36,16 +41,16 @@ export default function Footer() {
             visible: { transition: { staggerChildren: 0.1 } },
           }}
         >
-          {socials.map(({ href, Icon, label }) => (
+          {socialLinks.map((social) => (
             <motion.li
-              key={label}
+              key={social.id}
               className="group"
               initial={{ y: 10, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ type: 'spring', stiffness: 200 }}
             >
               <Link
-                href={href}
+                href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block p-2 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors"
@@ -55,8 +60,12 @@ export default function Footer() {
                   whileTap={{ scale: 0.9 }}
                   transition={{ type: 'spring', stiffness: 300 }}
                 >
-                  <Icon className="w-5 h-5" />
-                  <span className="sr-only">{label}</span>
+                  <DynamicIcon
+                    iconName={social.iconName}
+                    platform={social.iconPlatform}
+                    className="w-5 h-5"
+                  />
+                  <span className="sr-only">{social.name}</span>
                 </motion.div>
               </Link>
             </motion.li>

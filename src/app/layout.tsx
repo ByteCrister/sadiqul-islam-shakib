@@ -2,8 +2,7 @@ import type { Metadata } from 'next'
 import { ThemeProvider } from 'next-themes';
 import './globals.css';
 import React, { Suspense } from 'react';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
+import ClientLayoutWrapper from '@/components/wrappers/ClientLayoutWrapper';
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
@@ -12,6 +11,8 @@ import Loading3DText from '@/components/others/Loading3DText';
 import { ProfileImagePath } from '@/utils/params/parameter.global';
 import Cursor from '@/components/global/Cursor';
 import SmoothScroll from '@/components/global/SmoothScroll';
+import AuthProvider from '@/components/wrappers/AuthProvider';
+import { getLayoutData } from '@/lib/handlers/layout.handler';
 
 
 export const metadata: Metadata = {
@@ -55,11 +56,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { layoutUser, activeResume, footerSocialLinks } = await getLayoutData();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 font-sans">
@@ -69,14 +72,20 @@ export default function RootLayout({
           enableSystem={true}
           disableTransitionOnChange={true}
         >
-          <Suspense fallback={<Loading3DText />}>
-          <SmoothScroll>
-            <Header />
-            <main className="container mx-auto px-4 py-8 pb-3">{children}</main>
-            <Footer />
-            <Cursor />
-            </SmoothScroll>
-          </Suspense>
+          <AuthProvider>
+            <Suspense fallback={<Loading3DText />}>
+            <SmoothScroll>
+              <ClientLayoutWrapper
+                resumeUrl={activeResume?.url}
+                userName={layoutUser?.name}
+                footerSocialLinks={footerSocialLinks}
+              >
+                {children}
+              </ClientLayoutWrapper>
+              <Cursor />
+              </SmoothScroll>
+            </Suspense>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

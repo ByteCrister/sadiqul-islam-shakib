@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { html } from "@/lib/email/contact-html";
 import { mailer } from "@/lib/email/mailer";
 import { rateLimit } from "@/lib/upstash-redis/rate-limit";
+import { env } from "@/config/env";
 
 export async function POST(request: NextRequest) {
     try {
@@ -28,7 +29,7 @@ export async function POST(request: NextRequest) {
         }
 
         await mailer(
-            process.env.MY_CONTACT_EMAIL!,
+            env.MY_CONTACT_EMAIL,
             "New Contact Message",
             html(name, email, message)
         );

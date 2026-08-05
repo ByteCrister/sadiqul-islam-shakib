@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Project } from "@/utils/params/parameter.projects";
+import type { DProject } from "@/types/dashboard.types";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -40,11 +40,22 @@ const fadeIn: Variants = {
 
 const MotionLink = motion(Link);
 
-interface ProjectDetailProps {
-    project: Project;
+interface GalleryImage {
+    id: string;
+    sortOrder: number;
+    asset?: {
+        id: string;
+        name: string;
+        assetFile?: { url: string; width?: number | null; height?: number | null } | null;
+    } | null;
 }
 
-const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
+interface ProjectDetailProps {
+    project: DProject;
+    gallery?: GalleryImage[];
+}
+
+const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, gallery = [] }) => {
     const [copiedField, setCopiedField] = useState<string | null>(null);
 
     useEffect(() => {
@@ -103,7 +114,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
                     <Image
-                        src={project.thumbnail ?? getRandomImage(640, 360)}
+                        src={project.thumbnailAsset?.assetFile?.url ?? getRandomImage(640, 360)}
                         alt={`${project.title} thumbnail`}
                         width={1200}
                         height={675}
@@ -184,7 +195,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
                 )}
 
                 {/* Login Credentials */}
-                {project.loginCredentials && (project.loginCredentials.email || project.loginCredentials.password) && (
+                {(project.loginEmail || project.loginPassword) && (
                     <motion.div
                         variants={fadeIn}
                         custom={8}
@@ -200,17 +211,17 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
                         </div>
 
                         <div className="space-y-3">
-                            {project.loginCredentials.email && (
+                            {project.loginEmail && (
                                 <div className="bg-white/60 dark:bg-neutral-800/60 p-3 rounded-lg">
                                     <label className="text-xs font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">
                                         Email
                                     </label>
                                     <div className="flex items-center gap-2 mt-1">
                                         <code className="flex-1 text-sm font-mono text-neutral-800 dark:text-neutral-200 bg-neutral-100 dark:bg-neutral-900 px-3 py-1.5 rounded">
-                                            {project.loginCredentials.email}
+                                            {project.loginEmail}
                                         </code>
                                         <button
-                                            onClick={() => handleCopy(project.loginCredentials!.email!, 'email')}
+                                            onClick={() => handleCopy(project.loginEmail!, 'email')}
                                             className="p-2 rounded-lg bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600 transition-colors"
                                             title="Copy email"
                                         >
@@ -224,17 +235,17 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
                                 </div>
                             )}
 
-                            {project.loginCredentials.password && (
+                            {project.loginPassword && (
                                 <div className="bg-white/60 dark:bg-neutral-800/60 p-3 rounded-lg">
                                     <label className="text-xs font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">
                                         Password
                                     </label>
                                     <div className="flex items-center gap-2 mt-1">
                                         <code className="flex-1 text-sm font-mono text-neutral-800 dark:text-neutral-200 bg-neutral-100 dark:bg-neutral-900 px-3 py-1.5 rounded">
-                                            {project.loginCredentials.password}
+                                            {project.loginPassword}
                                         </code>
                                         <button
-                                            onClick={() => handleCopy(project.loginCredentials!.password!, 'password')}
+                                            onClick={() => handleCopy(project.loginPassword!, 'password')}
                                             className="p-2 rounded-lg bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600 transition-colors"
                                             title="Copy password"
                                         >
@@ -298,14 +309,14 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
                 })}
 
                 {/* Single Full-Scale Screenshot */}
-                {project.fullScreen && (
+                {project.fullscreenAsset?.assetFile?.url && (
                     <motion.div
                         variants={fadeIn}
-                        custom={3 /* bump indices of later sections by +1 */}
+                        custom={3}
                         className="mt-10 max-w-4xl mx-auto"
                     >
                         <FullscreenImage
-                            src={project.fullScreen}
+                            src={project.fullscreenAsset.assetFile.url}
                             alt={`${project.title} full-scale view`}
                             width={1280}
                             height={720}
@@ -313,28 +324,32 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
                     </motion.div>
                 )}
 
-                {/* Additional Screenshots */}
-                {project.images && project.images?.length > 0 && (
+                {/* Additional Screenshots (gallery) */}
+                {gallery.length > 0 && (
                     <motion.div
                         variants={fadeIn}
                         custom={20}
                         className="mt-16 grid gap-6 sm:grid-cols-2"
                     >
-                        {project.images.map((img, idx) => (
-                            <motion.div
-                                key={idx}
-                                className="relative overflow-hidden rounded-2xl shadow-lg group"
-                                whileHover={{ scale: 1.02 }}
-                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                            >
-                                <FullscreenImage
-                                    src={img}
-                                    alt={`Screenshot ${idx + 1}`}
-                                    width={600}
-                                    height={400}
-                                />
-                            </motion.div>
-                        ))}
+                        {gallery.map((img, idx) => {
+                            const url = img.asset?.assetFile?.url;
+                            if (!url) return null;
+                            return (
+                                <motion.div
+                                    key={img.id}
+                                    className="relative overflow-hidden rounded-2xl shadow-lg group"
+                                    whileHover={{ scale: 1.02 }}
+                                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                >
+                                    <FullscreenImage
+                                        src={url}
+                                        alt={`Screenshot ${idx + 1}`}
+                                        width={600}
+                                        height={400}
+                                    />
+                                </motion.div>
+                            );
+                        })}
                     </motion.div>
                 )}
             </motion.article>

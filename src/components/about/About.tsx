@@ -9,9 +9,9 @@ import {
     useInView,
 } from "framer-motion";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
-import { projects } from "@/utils/params/parameter.projects";
-import { counterData, experiences, skills } from "@/utils/params/parameter.about";
 import ProjectHighlights from "./ProjectHighlights";
+import type { DProject, DCounter, DExperience, DSkill } from "@/types/dashboard.types";
+import DynamicIcon from "../global/DynamicIcon";
 
 const container: Variants = {
     hidden: { opacity: 0 },
@@ -27,7 +27,14 @@ const fadeUp: Variants = {
     },
 };
 
-export default function About() {
+interface AboutProps {
+    projects: DProject[];
+    counters: DCounter[];
+    experiences: DExperience[];
+    skills: DSkill[];
+}
+
+export default function About({ projects, counters, experiences, skills }: AboutProps) {
     const [bioText] = useTypewriter({
         words: [
             "I build pixel-perfect user interfaces.",
@@ -60,7 +67,7 @@ export default function About() {
         [spring0, spring1, spring2]
     );
 
-    const [displayValues, setDisplayValues] = useState(counterData.map(() => 0));
+    const [displayValues, setDisplayValues] = useState(counters.map(() => 0));
 
     useEffect(() => {
         const unsubscribers = springs.map((spring, i) =>
@@ -77,9 +84,13 @@ export default function About() {
 
     useEffect(() => {
         if (isStatsInView) {
-            counterData.forEach((data, i) => motionValues[i].set(data.value));
+            counters.forEach((data, i) => {
+                if (motionValues[i]) {
+                    motionValues[i].set(data.value);
+                }
+            });
         }
-    }, [isStatsInView, motionValues]);
+    }, [isStatsInView, motionValues, counters]);
 
     // Group skills by category
     const groupedSkills = useMemo(() => {
@@ -126,18 +137,18 @@ export default function About() {
                 viewport={{ once: true }}
                 className="mt-16 flex flex-wrap justify-center gap-10"
             >
-                {counterData.map(({ Icon, label }, i) => (
+                {counters.map((data, i) => (
                     <motion.div
-                        key={label}
+                        key={data.id}
                         variants={fadeUp}
                         className="flex flex-col items-center w-36"
                     >
-                        <Icon className="w-8 h-8 text-primary" />
+                        <DynamicIcon iconName={data.iconName} platform={data.iconPlatform} className="w-8 h-8 text-primary" />
                         <motion.span className="text-4xl font-bold text-neutral-800 dark:text-neutral-100">
-                            {displayValues[i]}
+                            {displayValues[i] || 0}
                         </motion.span>
                         <span className="text-sm text-neutral-500 dark:text-neutral-400">
-                            {label}
+                            {data.label}
                         </span>
                     </motion.div>
                 ))}
@@ -173,14 +184,14 @@ export default function About() {
                             variants={container}
                             className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6"
                         >
-                            {skillsInCategory.map(({ name, Icon }) => (
+                            {skillsInCategory.map(({ id, name, iconName, iconPlatform }) => (
                                 <motion.div
-                                    key={name}
+                                    key={id}
                                     variants={fadeUp}
                                     whileHover={{ scale: 1.05 }}
                                     className="bg-neutral-50 dark:bg-neutral-700 rounded-xl p-4 flex flex-col items-center gap-2"
                                 >
-                                    <Icon size={32} className="text-primary" />
+                                    <DynamicIcon iconName={iconName} platform={iconPlatform} size={32} className="text-primary" />
                                     <span className="text-neutral-800 dark:text-neutral-100 font-medium">
                                         {name}
                                     </span>
@@ -220,19 +231,19 @@ export default function About() {
                     aria-hidden="true"
                 />
 
-                {experiences.map(({ icon: Icon, ...exp }, idx) => {
+                {experiences.map((exp, idx) => {
                     const isRight = idx % 2 === 0;
 
                     return (
                         <motion.div
-                            key={exp.role}
+                            key={exp.id}
                             variants={fadeUp}
                             className={`relative w-full md:w-1/2 p-6 mb-10 ${isRight ? "md:ml-auto md:text-left" : "md:mr-auto md:text-left"}`}
                         >
                             <div
                                 className="absolute top-0 left-1/2 transform -translate-x-1/2 z-10 w-10 h-10 bg-primary text-white dark:text-gray-600 rounded-full flex items-center justify-center"
                             >
-                                <Icon size={20} />
+                                <DynamicIcon iconName={exp.iconName} platform={exp.iconPlatform} size={20} />
                             </div>
 
                             <time className="text-sm font-medium text-neutral-500 italic dark:text-neutral-400 block">

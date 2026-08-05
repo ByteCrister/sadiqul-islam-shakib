@@ -6,12 +6,17 @@ import { motion, Variants } from "framer-motion";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
 import { HeroWords } from "@/utils/params/parameter.hero";
 import { ProfileImagePath, userName } from "@/utils/params/parameter.global";
-import { skills } from "@/utils/params/parameter.about";
 import { useEffect, useRef, useState, useMemo } from "react";
+import type { DSkill } from "@/types/dashboard.types";
+import DynamicIcon from "../global/DynamicIcon";
 
 const MotionLink = motion(Link);
 
-export default function Hero() {
+interface HeroProps {
+  skills?: DSkill[];
+}
+
+export default function Hero({ skills = [] }: HeroProps) {
   // Looping tagline
   const [tagText] = useTypewriter({
     words: HeroWords,
@@ -94,7 +99,7 @@ export default function Hero() {
 
   // Group skills by category, preserving original indices for refs and active index
   const groupedSkills = useMemo(() => {
-    const groups: { category: string; skills: { skill: typeof skills[0]; originalIndex: number }[] }[] = [];
+    const groups: { category: string; skills: { skill: DSkill; originalIndex: number }[] }[] = [];
     skills.forEach((skill, index) => {
       let group = groups.find((g) => g.category === skill.category);
       if (!group) {
@@ -104,7 +109,7 @@ export default function Hero() {
       group.skills.push({ skill, originalIndex: index });
     });
     return groups;
-  }, []);
+  }, [skills]);
 
   return (
     <section
@@ -193,12 +198,11 @@ export default function Hero() {
             </h4>
             <div className="flex flex-wrap justify-center gap-3">
               {group.skills.map(({ skill, originalIndex }) => {
-                const Icon = skill.Icon;
                 const isActive = originalIndex === activeIndex;
 
                 return (
                   <motion.div
-                    key={skill.name}
+                    key={skill.id}
                     variants={skillItem}
                     ref={(el) => {
                       skillRefs.current[originalIndex] = el;
@@ -211,7 +215,11 @@ export default function Hero() {
                                 rounded-lg border transition-colors duration-300 relative z-10
                                 ${isActive ? "border-primary dark:border-primary shadow-lg" : "border-neutral-200 dark:border-neutral-700"}`}
                   >
-                    <Icon className={`w-4 h-4 ${isActive ? "text-primary" : "text-primary"}`} />
+                    <DynamicIcon 
+                      iconName={skill.iconName} 
+                      platform={skill.iconPlatform} 
+                      className={`w-4 h-4 ${isActive ? "text-primary" : "text-primary"}`} 
+                    />
                     <span className={`text-sm font-medium ${isActive ? "text-neutral-900 dark:text-neutral-100" : "text-neutral-700 dark:text-neutral-300"}`}>
                       {skill.name}
                     </span>

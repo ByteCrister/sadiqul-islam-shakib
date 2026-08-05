@@ -1,6 +1,7 @@
 import Projects from "@/components/projects/Projects";
 import { generatePageMetadata } from "@/utils/helper/metadata";
 import { Metadata } from "next";
+import { getProjects } from "@/lib/handlers/projects.handler";
 
 export const metadata: Metadata = {
   ...generatePageMetadata({
@@ -28,10 +29,9 @@ export const metadata: Metadata = {
   }),
 };
 
-const page = () => {
+export default async function Page() {
+  const projects = await getProjects();
   return (
-     <Projects />
+     <Projects projects={projects} />
   )
 }
-
-export default page

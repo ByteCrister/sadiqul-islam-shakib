@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { env } from "@/config/env";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -7,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/private"],
     },
-    sitemap: `${process.env.NEXT_PUBLIC_BASE_URL}/sitemap.xml`,
+    sitemap: `${env.NEXT_PUBLIC_BASE_URL}/sitemap.xml`,
   };
 }

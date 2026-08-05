@@ -6,10 +6,25 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sun, Moon, Download, Menu, X } from 'lucide-react';
 import { Cursor, useTypewriter } from 'react-simple-typewriter';
-import { ResumeSharableLink, navItems, NavWords } from '@/utils/params/parameter.header';
+import { navItems, NavWords } from '@/utils/params/parameter.header';
 import { usePathname } from 'next/navigation';
 
-export default function Header() {
+interface HeaderProps {
+  resumeUrl?: string | null;
+  userName?: string | null;
+}
+
+const getResumeLink = (url?: string | null) => {
+    if (!url) return '#';
+    // Cloudinary 'raw' PDFs force a download due to Content-Disposition header.
+    // We route them through Google Docs Viewer to display them inline in a new tab.
+    if (url.includes('/raw/upload/') && url.endsWith('.pdf')) {
+        return `https://docs.google.com/viewer?url=${encodeURIComponent(url)}`;
+    }
+    return url;
+};
+
+export default function Header({ resumeUrl, userName: _userName }: HeaderProps) {
     const pathname = usePathname();
     const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
@@ -62,8 +77,8 @@ export default function Header() {
                     })}
 
                     <motion.a
-                        href={ResumeSharableLink}
-                        target="_blank"
+                        href={getResumeLink(resumeUrl)}
+                        target={resumeUrl ? "_blank" : undefined}
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-primary text-white rounded-full shadow hover:shadow-lg hover:bg-primary/90 transition dark:bg-gray-500 dark:text-gray-100 dark:hover:bg-primary/35"
                         whileHover={{ y: -2 }}
@@ -120,8 +135,8 @@ export default function Header() {
                             ))}
                             <li className="flex justify-center">
                                 <Link
-                                    href={ResumeSharableLink}
-                                    target="_blank"
+                                    href={getResumeLink(resumeUrl)}
+                                    target={resumeUrl ? "_blank" : undefined}
                                     rel="noopener noreferrer"
                                     className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-primary text-white 
                                     rounded-full shadow hover:shadow-lg hover:bg-primary/90 transition 

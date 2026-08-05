@@ -18,7 +18,7 @@ import 'swiper/css/pagination'
 import 'swiper/css/effect-coverflow'
 import type SwiperType from 'swiper'
 
-import { Project } from '@/utils/params/parameter.projects'
+import type { DProject } from '@/types/dashboard.types'
 
 const container: Variants = {
   hidden: { opacity: 0 },
@@ -42,7 +42,7 @@ const cardHover: Variants = {
 }
 
 interface ProjectHighlightsProps {
-  projects: Project[]
+  projects: DProject[]
 }
 
 export default function ProjectHighlights({ projects }: ProjectHighlightsProps) {
@@ -183,7 +183,7 @@ export default function ProjectHighlights({ projects }: ProjectHighlightsProps) 
                   {/* Image Container */}
                   <div className="relative w-full h-56 overflow-hidden">
                     <Image
-                      src={proj.thumbnail || proj.images?.[0] || '/placeholder.png'}
+                      src={proj.thumbnailAsset?.assetFile?.url || '/placeholder.png'}
                       alt={proj.title}
                       fill
                       quality={90}

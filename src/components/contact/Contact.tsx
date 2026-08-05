@@ -20,9 +20,14 @@ import {
   ArrowRight,
   Send,
 } from "lucide-react";
-import { contactParams } from "@/utils/params/parameter.contact";
+import type { DSocialLink } from "@/types/dashboard.types";
+import DynamicIcon from "@/components/global/DynamicIcon";
 
-const Contact = () => {
+interface ContactProps {
+  socialLinks?: DSocialLink[];
+}
+
+const Contact = ({ socialLinks = [] }: ContactProps) => {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
@@ -51,9 +56,9 @@ const Contact = () => {
     }
   }
 
-  const getHref = (item: typeof contactParams[0]) => {
-    if (item.name === "Email") return `mailto:${item.link}`;
-    return item.link;
+  const getHref = (item: DSocialLink) => {
+    if (item.name.toLowerCase() === "email") return `mailto:${item.href}`;
+    return item.href;
   };
 
   const containerVariants: Variants = {
@@ -113,13 +118,12 @@ const Contact = () => {
                 Find me on
               </p>
               <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
-                {contactParams.map((item, index) => {
-                  const Icon = item.icon;
+                {socialLinks.map((item, index) => {
                   return (
                     <motion.a
-                      key={item.name}
+                      key={item.id}
                       href={getHref(item)}
-                      target={item.name === "Email" ? "_self" : "_blank"}
+                      target={item.name.toLowerCase() === "email" ? "_self" : "_blank"}
                       rel="noopener noreferrer"
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
@@ -128,9 +132,10 @@ const Contact = () => {
                       whileTap={{ scale: 0.98 }}
                       className="group relative flex items-center gap-2 px-5 py-2.5 rounded-full bg-neutral-50 dark:bg-neutral-800/70 border border-neutral-200/80 dark:border-neutral-700/60 hover:border-neutral-400 dark:hover:border-neutral-500 hover:bg-white dark:hover:bg-neutral-800 transition-all duration-200 shadow-sm hover:shadow"
                     >
-                      <Icon
-                        size={16}
-                        className="text-neutral-500 dark:text-neutral-400 group-hover:text-neutral-800 dark:group-hover:text-neutral-200 transition-colors"
+                      <DynamicIcon
+                        iconName={item.iconName}
+                        platform={item.iconPlatform}
+                        className="w-4 h-4 text-neutral-500 dark:text-neutral-400 group-hover:text-neutral-800 dark:group-hover:text-neutral-200 transition-colors"
                       />
                       <span className="text-xs font-medium text-neutral-500 dark:text-neutral-500 group-hover:text-neutral-700 dark:group-hover:text-neutral-300">
                         {item.name}

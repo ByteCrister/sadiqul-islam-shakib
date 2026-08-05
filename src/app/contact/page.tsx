@@ -1,6 +1,7 @@
 import Contact from "@/components/contact/Contact";
 import { generatePageMetadata } from "@/utils/helper/metadata";
 import { Metadata } from "next";
+import { getContactSocialLinks } from "@/lib/handlers/contact.handler";
 
 export const metadata: Metadata = {
   ...generatePageMetadata({
@@ -28,8 +29,7 @@ export const metadata: Metadata = {
   }),
 };
 
-const page = () => {
-  return <Contact />;
-};
-
-export default page;
+export default async function Page() {
+  const socialLinks = await getContactSocialLinks();
+  return <Contact socialLinks={socialLinks} />;
+}

@@ -3,12 +3,12 @@ import { getRandomImage } from "@/utils/helper/image";
 import Link from "next/link";
 import { ExternalLink, Github, Code2, Eye, ChevronRight, Sparkles } from "lucide-react";
 import Image from "next/image";
-import { Project } from "@/utils/params/parameter.projects";
+import type { DProject } from "@/types/dashboard.types";
 import { Variants, motion } from "framer-motion";
 import { useCallback, useState } from "react";
 
 interface ProjectCardProps {
-    project: Project;
+    project: DProject;
     index: number;
     onClick: (slug: string) => void;
 }
@@ -39,7 +39,7 @@ const cardHoverVariants: Variants = {
 
 const ProjectCard = ({ project, index, onClick }: ProjectCardProps) => {
     const [imageLoading, setImageLoading] = useState(true);
-    const src = project.thumbnail ?? getRandomImage(640, 360);
+    const src = project.thumbnailAsset?.assetFile?.url ?? getRandomImage(640, 360);
 
     const handleCardClick = useCallback(() => {
         onClick(project.slug);
@@ -69,7 +69,7 @@ const ProjectCard = ({ project, index, onClick }: ProjectCardProps) => {
                 )}
 
                 {/* Project Image */}
-                {project.thumbnail && (
+                {src && (
                     <div className="relative w-full h-56 overflow-hidden">
                         {imageLoading && (
                             <div className="absolute inset-0 bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-700 animate-pulse" />

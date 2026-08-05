@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { projects } from "@/utils/params/parameter.projects";
+import type { DProject } from "@/types/dashboard.types";
 import { Code2, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useCallback } from "react";
@@ -19,12 +19,12 @@ const containerVariants: Variants = {
   },
 };
 
-const Projects = () => {
+const Projects = ({ projects }: { projects: DProject[] }) => {
   const router = useRouter();
   const [showAll, setShowAll] = useState<boolean>(false);
 
   // Get unique technologies for filtering
-  const allTech = Array.from(new Set(projects.flatMap(project => project.tech)));
+  const allTech = Array.from(new Set(projects.flatMap(project => project.tech || [])));
   const visibleProjects = showAll ? projects : projects.slice(0, 6);
 
   const handleProjectClick = useCallback((slug: string) => {

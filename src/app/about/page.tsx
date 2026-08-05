@@ -1,6 +1,8 @@
 import About from '@/components/about/About';
 import { generatePageMetadata } from '@/utils/helper/metadata'
 import { Metadata } from 'next'
+import { getAboutData } from '@/lib/handlers/about.handler'
+import { getProjects } from '@/lib/handlers/projects.handler'
 
 export const metadata: Metadata = {
   ...generatePageMetadata({
@@ -26,8 +28,14 @@ export const metadata: Metadata = {
   }),
 }
 
-const page = () => {
-  return <About />
+export default async function Page() {
+  const { counters, experiences, skills } = await getAboutData();
+  const projects = await getProjects();
+  
+  return <About 
+    counters={counters} 
+    experiences={experiences} 
+    skills={skills} 
+    projects={projects} 
+  />
 }
-
-export default page

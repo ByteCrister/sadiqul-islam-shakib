@@ -1,6 +1,7 @@
 import Hero from "@/components/hero/Hero";
 import { generatePageMetadata } from "@/utils/helper/metadata";
 import { Metadata } from "next";
+import { getSkills } from "@/lib/handlers/about.handler";
 
 export const metadata: Metadata = {
   ...generatePageMetadata({
@@ -54,8 +55,9 @@ export const viewport = {
 };
 
 
-export default function HomePage() {
+export default async function HomePage() {
+  const skills = await getSkills();
   return (
-    <Hero />
+    <Hero skills={skills} />
   );
 }

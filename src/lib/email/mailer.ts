@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import { env } from "@/config/env";
 
 // ? For production
 export const mailer = async (To: string, subject: string, html: string) => {
@@ -6,13 +7,13 @@ export const mailer = async (To: string, subject: string, html: string) => {
         const transporter = nodemailer.createTransport({
             service: "Gmail",
             auth: {
-                user: process.env.EMAIL_AUTH,
-                pass: process.env.PASSWORD_AUTH,
+                user: env.EMAIL_AUTH,
+                pass: env.PASSWORD_AUTH,
             },
         });
 
         const mailOptions = {
-            from: `"Sadiqul Islam Shakib | Portfolio" <${process.env.EMAIL_AUTH}>`,
+            from: `"Sadiqul Islam Shakib | Portfolio" <${env.EMAIL_AUTH}>`,
             to: To,
             subject: subject,
             html: html,
