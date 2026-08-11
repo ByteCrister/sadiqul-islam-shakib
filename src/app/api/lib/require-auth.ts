@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth/next";
 import type { Session } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { authOptions } from "@/lib/auth/auth.lib";
 import { unauthorized } from "./api-helpers";
 
 export type AuthResult =

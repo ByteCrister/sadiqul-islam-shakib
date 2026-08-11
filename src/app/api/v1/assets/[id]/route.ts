@@ -5,6 +5,7 @@ import { asset } from "@/db/schema";
 import { requireAuth } from "@/app/api/lib/require-auth";
 import { ok, notFound, serverError } from "@/app/api/lib/api-helpers";
 import { cascadeDeleteAsset } from "@/app/api/lib/cascade-delete-asset";
+import { revalidatePath } from "next/cache";
 
 type RouteContext = { params: Promise<{ id: string }> };
 
@@ -26,6 +27,8 @@ export async function DELETE(req: NextRequest, { params }: RouteContext) {
 
     // Full cascade: asset → asset_file (if no remaining refs) → Cloudinary
     const result = await cascadeDeleteAsset(id);
+
+    revalidatePath("/", "layout"); // Revalidate everything in case of cascading deletions
 
     return ok(result);
   } catch (err) {

@@ -4,6 +4,7 @@ import { db } from "@/db";
 import { projectImage, asset, assetFile } from "@/db/schema";
 import { requireAuth } from "@/app/api/lib/require-auth";
 import { ok, badRequest, serverError } from "@/app/api/lib/api-helpers";
+import { revalidatePath } from "next/cache";
 
 type RouteContext = { params: Promise<{ id: string }> };
 
@@ -88,8 +89,8 @@ export async function POST(req: NextRequest, { params }: RouteContext) {
       .leftJoin(assetFile, eq(asset.assetFileId, assetFile.id))
       .where(eq(projectImage.id, inserted.id))
       .then(r => r[0]);
-      
-    return ok({
+
+    const response = ok({
       id: row.project_image.id,
       projectId: row.project_image.projectId,
       assetId: row.project_image.assetId,
@@ -104,6 +105,11 @@ export async function POST(req: NextRequest, { params }: RouteContext) {
         } : null,
       } : null,
     }, 201);
+
+    // Revalidate so the new gallery image appears on the project detail page
+    revalidatePath("/projects/[slug]", "page");
+
+    return response;
   } catch (err) {
     return serverError(err);
   }

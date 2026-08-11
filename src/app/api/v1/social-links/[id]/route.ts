@@ -5,7 +5,8 @@ import { socialLink } from "@/db/schema";
 import type { DSocialLink, IconPlatform, SocialLinkContext } from "@/types/dashboard.types";
 import { requireAuth } from "@/app/api/lib/require-auth";
 import { ok, notFound, serverError } from "@/app/api/lib/api-helpers";
-import { compactSocialLinkOrders, reorderSocialLinks } from "../order.utils";
+import { compactSocialLinkOrders, reorderSocialLinks } from "../../../../../lib/helpers/social-links-order.lib";
+import { revalidatePath } from "next/cache";
 
 type RouteContext = { params: Promise<{ id: string }> };
 
@@ -60,6 +61,7 @@ export async function PATCH(req: NextRequest, { params }: RouteContext) {
       .orderBy(asc(socialLink.sortOrder));
 
     const fresh = allRows.find((r) => r.id === id) ?? updated;
+    revalidatePath("/", "layout");
     return ok<DSocialLink>(toSocialLink(fresh));
   } catch (err) {
     return serverError(err);
@@ -85,6 +87,7 @@ export async function DELETE(_req: NextRequest, { params }: RouteContext) {
     // Compact remaining orders after deletion so there are no gaps
     await compactSocialLinkOrders();
 
+    revalidatePath("/", "layout");
     return ok<{ id: string }>({ id: deleted.id });
   } catch (err) {
     return serverError(err);

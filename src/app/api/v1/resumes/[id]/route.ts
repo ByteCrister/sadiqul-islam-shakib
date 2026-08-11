@@ -5,6 +5,7 @@ import { resume } from "@/db/schema";
 import { requireAuth } from "@/app/api/lib/require-auth";
 import { ok, notFound, serverError } from "@/app/api/lib/api-helpers";
 import { cascadeDeleteAsset } from "@/app/api/lib/cascade-delete-asset";
+import { revalidatePath } from "next/cache";
 
 // ── PATCH /api/v1/resumes/[id] ───────────────────────────────────────────────
 
@@ -36,6 +37,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
 
     if (!updated) return notFound("Resume not found");
 
+    revalidatePath("/", "layout");
     return ok<{ success: true }>({ success: true });
   } catch (err) {
     return serverError(err);
@@ -69,6 +71,7 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
     // 3. Cascade: delete asset → asset_file (if 0 refs) → Cloudinary
     const cascade = await cascadeDeleteAsset(assetId);
 
+    revalidatePath("/", "layout");
     return ok({ id, ...cascade });
   } catch (err) {
     return serverError(err);

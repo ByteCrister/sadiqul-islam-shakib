@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/auth";
+import { authOptions } from "@/lib/auth/auth.lib";
 import { redirect } from "next/navigation";
 import DashboardTabs from "@/components/dashboard/DashboardTabs";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
@@ -17,7 +17,7 @@ export default async function DashboardPage() {
         userName={session.user?.name || "Admin"}
         userEmail={session.user?.email || ""}
       />
-      
+
       <main className="flex-1">
         <DashboardTabs />
       </main>

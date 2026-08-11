@@ -5,7 +5,8 @@ import { skill } from "@/db/schema";
 import type { DSkill, SkillCategory, IconPlatform } from "@/types/dashboard.types";
 import { requireAuth } from "@/app/api/lib/require-auth";
 import { ok, notFound, serverError } from "@/app/api/lib/api-helpers";
-import { compactSkillOrders, reorderSkills } from "../order.utils";
+import { compactSkillOrders, reorderSkills } from "../../../../../lib/helpers/skills-order.lib";
+import { revalidatePath } from "next/cache";
 
 type RouteContext = { params: Promise<{ id: string }> };
 
@@ -57,6 +58,8 @@ export async function PATCH(req: NextRequest, { params }: RouteContext) {
       .orderBy(asc(skill.sortOrder));
 
     const fresh = allRows.find((r) => r.id === id) ?? updated;
+    revalidatePath("/", "page");
+    revalidatePath("/about", "page");
     return ok<DSkill>(toSkill(fresh));
   } catch (err) {
     return serverError(err);
@@ -81,6 +84,8 @@ export async function DELETE(_req: NextRequest, { params }: RouteContext) {
 
     await compactSkillOrders();
 
+    revalidatePath("/", "page");
+    revalidatePath("/about", "page");
     return ok<{ id: string }>({ id: deleted.id });
   } catch (err) {
     return serverError(err);

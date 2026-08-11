@@ -5,7 +5,8 @@ import { experience } from "@/db/schema";
 import type { DExperience, IconPlatform } from "@/types/dashboard.types";
 import { requireAuth } from "@/app/api/lib/require-auth";
 import { ok, notFound, serverError } from "@/app/api/lib/api-helpers";
-import { compactExperienceOrders, reorderExperiences } from "../order.utils";
+import { compactExperienceOrders, reorderExperiences } from "../../../../../lib/helpers/experiences-order.lib";
+import { revalidatePath } from "next/cache";
 
 type RouteContext = { params: Promise<{ id: string }> };
 
@@ -63,6 +64,7 @@ export async function PATCH(req: NextRequest, { params }: RouteContext) {
       .orderBy(asc(experience.sortOrder));
 
     const fresh = allRows.find((r) => r.id === id) ?? updated;
+    revalidatePath("/about", "page");
     return ok<DExperience>(toExperience(fresh));
   } catch (err) {
     return serverError(err);
@@ -87,6 +89,7 @@ export async function DELETE(_req: NextRequest, { params }: RouteContext) {
 
     await compactExperienceOrders();
 
+    revalidatePath("/about", "page");
     return ok<{ id: string }>({ id: deleted.id });
   } catch (err) {
     return serverError(err);

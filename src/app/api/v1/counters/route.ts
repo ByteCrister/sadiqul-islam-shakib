@@ -5,6 +5,7 @@ import { counter } from "@/db/schema";
 import type { DCounter, DCounterInput, IconPlatform } from "@/types/dashboard.types";
 import { requireAuth } from "@/app/api/lib/require-auth";
 import { ok, serverError } from "@/app/api/lib/api-helpers";
+import { revalidatePath } from "next/cache";
 
 function toCounter(row: typeof counter.$inferSelect): DCounter {
   return {
@@ -55,6 +56,7 @@ export async function POST(req: NextRequest) {
       .returning()
       .then((r) => r[0]);
 
+    revalidatePath("/about", "page");
     return ok<DCounter>(toCounter(inserted), 201);
   } catch (err) {
     return serverError(err);

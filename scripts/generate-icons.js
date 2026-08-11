@@ -39,7 +39,7 @@ async function main() {
     "react-icons": reactIconsKeys,
   };
 
-  const outputDir = path.join(__dirname, "../src/utils");
+  const outputDir = path.join(__dirname, "../src/data");
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }

@@ -6,6 +6,7 @@ import { user } from "@/db/schema";
 import type { DUser } from "@/types/dashboard.types";
 import { requireAuth } from "@/app/api/lib/require-auth";
 import { ok, apiError, notFound, serverError } from "@/app/api/lib/api-helpers";
+import { revalidatePath } from "next/cache";
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
 
@@ -83,6 +84,7 @@ export async function PATCH(req: NextRequest) {
 
     if (!updated) return notFound("Profile not found");
     
+    revalidatePath("/", "layout");
     return ok<DUser>(toPublicUser(updated));
   } catch (err) {
     return serverError(err);

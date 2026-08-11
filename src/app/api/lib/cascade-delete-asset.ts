@@ -1,7 +1,7 @@
 import { eq, count } from "drizzle-orm";
 import { db } from "@/db";
 import { asset, assetFile } from "@/db/schema";
-import { removeAsset, type CloudinaryFolder } from "@/lib/cloudinary";
+import { removeAsset, type CloudinaryFolder } from "@/lib/cloudinary/cloudinary.lib";
 
 /**
  * Retry a DB operation up to `maxAttempts` times on transient connection errors.

@@ -5,7 +5,8 @@ import { project } from "@/db/schema";
 import type { DProject, DProjectInput } from "@/types/dashboard.types";
 import { requireAuth } from "@/app/api/lib/require-auth";
 import { ok, serverError } from "@/app/api/lib/api-helpers";
-import { compactProjectOrders, nextProjectOrder, reorderProjects } from "./order.utils";
+import { compactProjectOrders, nextProjectOrder, reorderProjects } from "../../../../lib/helpers/projects-order.lib";
+import { revalidatePath } from "next/cache";
 
 import { fetchProjectWithAssets, toProject } from "./[id]/route";
 
@@ -73,6 +74,12 @@ export async function POST(req: NextRequest) {
     // Re-fetch with the compacted order so the returned row is accurate
     const allRows = await db.select().from(project).orderBy(asc(project.sortOrder));
     const fresh = allRows.find((r) => r.id === inserted.id) ?? inserted;
+
+    // Revalidate all project-related pages so the new project appears immediately
+    revalidatePath("/", "page");
+    revalidatePath("/projects", "page");
+    revalidatePath("/about", "page");
+    revalidatePath("/projects/[slug]", "page");
 
     return ok<DProject>(toProject(fresh), 201);
   } catch (err) {

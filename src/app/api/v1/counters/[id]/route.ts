@@ -5,6 +5,7 @@ import { counter } from "@/db/schema";
 import type { DCounter, IconPlatform } from "@/types/dashboard.types";
 import { requireAuth } from "@/app/api/lib/require-auth";
 import { ok, notFound, serverError } from "@/app/api/lib/api-helpers";
+import { revalidatePath } from "next/cache";
 
 type RouteContext = { params: Promise<{ id: string }> };
 
@@ -44,6 +45,7 @@ export async function PATCH(req: NextRequest, { params }: RouteContext) {
       .then((r) => r[0]);
 
     if (!updated) return notFound("Counter not found");
+    revalidatePath("/about", "page");
     return ok<DCounter>(toCounter(updated));
   } catch (err) {
     return serverError(err);
@@ -66,6 +68,7 @@ export async function DELETE(_req: NextRequest, { params }: RouteContext) {
       .then((r) => r[0]);
 
     if (!deleted) return notFound("Counter not found");
+    revalidatePath("/about", "page");
     return ok<{ id: string }>({ id: deleted.id });
   } catch (err) {
     return serverError(err);

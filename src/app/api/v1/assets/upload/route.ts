@@ -3,7 +3,7 @@ import crypto from "crypto";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { asset, assetFile } from "@/db/schema";
-import { uploadAsset, type CloudinaryFolder } from "@/lib/cloudinary";
+import { uploadAsset, type CloudinaryFolder } from "@/lib/cloudinary/cloudinary.lib";
 import { requireAuth } from "@/app/api/lib/require-auth";
 import { ok, serverError, badRequest } from "@/app/api/lib/api-helpers";
 

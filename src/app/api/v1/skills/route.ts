@@ -5,7 +5,8 @@ import { skill } from "@/db/schema";
 import type { DSkill, DSkillInput, SkillCategory, IconPlatform } from "@/types/dashboard.types";
 import { requireAuth } from "@/app/api/lib/require-auth";
 import { ok, serverError } from "@/app/api/lib/api-helpers";
-import { compactSkillOrders, nextSkillOrder } from "./order.utils";
+import { compactSkillOrders, nextSkillOrder } from "../../../../lib/helpers/skills-order.lib";
+import { revalidatePath } from "next/cache";
 
 function toSkill(row: typeof skill.$inferSelect): DSkill {
   return {
@@ -68,6 +69,8 @@ export async function POST(req: NextRequest) {
       .orderBy(asc(skill.sortOrder));
 
     const fresh = allRows.find((r) => r.id === inserted.id) ?? inserted;
+    revalidatePath("/", "page");
+    revalidatePath("/about", "page");
     return ok<DSkill>(toSkill(fresh), 201);
   } catch (err) {
     return serverError(err);

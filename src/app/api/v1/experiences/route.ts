@@ -5,7 +5,8 @@ import { experience } from "@/db/schema";
 import type { DExperience, DExperienceInput, IconPlatform } from "@/types/dashboard.types";
 import { requireAuth } from "@/app/api/lib/require-auth";
 import { ok, serverError } from "@/app/api/lib/api-helpers";
-import { compactExperienceOrders, nextExperienceOrder } from "./order.utils";
+import { compactExperienceOrders, nextExperienceOrder } from "../../../../lib/helpers/experiences-order.lib";
+import { revalidatePath } from "next/cache";
 
 function toExperience(row: typeof experience.$inferSelect): DExperience {
   return {
@@ -74,6 +75,7 @@ export async function POST(req: NextRequest) {
       .orderBy(asc(experience.sortOrder));
 
     const fresh = allRows.find((r) => r.id === inserted.id) ?? inserted;
+    revalidatePath("/about", "page");
     return ok<DExperience>(toExperience(fresh), 201);
   } catch (err) {
     return serverError(err);

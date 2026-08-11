@@ -10,6 +10,7 @@ import type {
 } from "@/types/dashboard.types";
 import { requireAuth } from "@/app/api/lib/require-auth";
 import { ok, serverError } from "@/app/api/lib/api-helpers";
+import { revalidatePath } from "next/cache";
 
 function toAssetFile(row: typeof assetFile.$inferSelect): DAssetFile {
   return {
@@ -121,6 +122,7 @@ export async function POST(req: Request) {
       asset: joinedAsset,
     };
 
+    revalidatePath("/", "layout");
     return ok<DProfileImage>(result, 201);
   } catch (err) {
     return serverError(err);

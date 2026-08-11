@@ -5,6 +5,7 @@ import { siteConfig } from "@/db/schema";
 import type { DSiteConfig, DSiteConfigInput } from "@/types/dashboard.types";
 import { requireAuth } from "@/app/api/lib/require-auth";
 import { ok, serverError } from "@/app/api/lib/api-helpers";
+import { revalidatePath } from "next/cache";
 
 function toSiteConfig(row: typeof siteConfig.$inferSelect): DSiteConfig {
   return {
@@ -56,6 +57,7 @@ export async function POST(req: NextRequest) {
       .returning()
       .then((r) => r[0]);
 
+    revalidatePath("/", "layout");
     return ok<DSiteConfig>(toSiteConfig(upserted));
   } catch (err) {
     return serverError(err);

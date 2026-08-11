@@ -5,9 +5,22 @@ import { project, asset, assetFile } from "@/db/schema";
 import type { DProject, DAsset, DAssetFile, CloudinaryFolder, CloudinaryResourceType } from "@/types/dashboard.types";
 import { requireAuth } from "@/app/api/lib/require-auth";
 import { ok, notFound, serverError } from "@/app/api/lib/api-helpers";
-import { compactProjectOrders, reorderProjects } from "../order.utils";
+import { compactProjectOrders, reorderProjects } from "../../../../../lib/helpers/projects-order.lib";
+import { revalidatePath } from "next/cache";
 
 type RouteContext = { params: Promise<{ id: string }> };
+
+/** Revalidate all public pages that display project data. */
+function revalidateProjectPages(slug?: string | null) {
+  revalidatePath("/", "page");
+  revalidatePath("/projects", "page");
+  revalidatePath("/about", "page");
+  if (slug) {
+    revalidatePath(`/projects/${slug}`, "page");
+  }
+  // Revalidate the dynamic segment layout too
+  revalidatePath("/projects/[slug]", "page");
+}
 
 function toAssetFile(row: typeof assetFile.$inferSelect): DAssetFile {
   return {
@@ -138,6 +151,10 @@ export async function PATCH(req: NextRequest, { params }: RouteContext) {
 
     // Return with joined asset URLs so the UI can display images immediately
     const enriched = await fetchProjectWithAssets(updated.id);
+
+    // Revalidate frontend pages so changes appear immediately
+    revalidateProjectPages(enriched?.slug ?? updated.slug);
+
     return ok<DProject>(enriched ?? toProject(updated));
   } catch (err) {
     return serverError(err);
@@ -163,6 +180,9 @@ export async function DELETE(_req: NextRequest, { params }: RouteContext) {
 
     // Compact after deletion to close the gap
     await compactProjectOrders();
+
+    // Revalidate frontend pages so deletion is reflected immediately
+    revalidateProjectPages(deleted.slug);
 
     return ok<{ id: string }>({ id: deleted.id });
   } catch (err) {

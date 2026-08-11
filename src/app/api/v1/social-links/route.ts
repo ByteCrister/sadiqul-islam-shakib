@@ -10,7 +10,8 @@ import type {
 } from "@/types/dashboard.types";
 import { requireAuth } from "@/app/api/lib/require-auth";
 import { ok, serverError } from "@/app/api/lib/api-helpers";
-import { compactSocialLinkOrders, nextSocialLinkOrder } from "./order.utils";
+import { compactSocialLinkOrders, nextSocialLinkOrder } from "../../../../lib/helpers/social-links-order.lib";
+import { revalidatePath } from "next/cache";
 
 function toSocialLink(row: typeof socialLink.$inferSelect): DSocialLink {
   return {
@@ -80,6 +81,7 @@ export async function POST(req: NextRequest) {
       .orderBy(asc(socialLink.sortOrder));
 
     const fresh = allRows.find((r) => r.id === inserted.id) ?? inserted;
+    revalidatePath("/", "layout");
     return ok<DSocialLink>(toSocialLink(fresh), 201);
   } catch (err) {
     return serverError(err);

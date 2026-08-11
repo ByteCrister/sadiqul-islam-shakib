@@ -3,7 +3,7 @@ import { requireAuth } from "@/app/api/lib/require-auth";
 import { ok, apiError, serverError } from "@/app/api/lib/api-helpers";
 
 // We import the JSON data outside the handler so it stays in memory across requests
-import iconsList from "@/utils/icons-list.json";
+import iconsList from "@/data/icons-list.json";
 
 export async function GET(req: NextRequest) {
   const { error } = await requireAuth();
