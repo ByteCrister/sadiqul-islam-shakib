@@ -4,136 +4,175 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  /* Colors - Design System */
+  --color-canvas: var(--canvas);
+  --color-hairline: var(--hairline);
+  --color-card-surface: var(--card-surface);
+  --color-divider: var(--divider);
+  --color-graphite: var(--graphite);
+  --color-ink: var(--ink);
+  --color-pencil: var(--pencil);
+  --color-faint: var(--faint);
+
+  /* Map standard tailwind colors to design system */
+  --color-background: var(--canvas);
+  --color-foreground: var(--ink);
+  --color-primary: var(--graphite);
+  --color-primary-foreground: var(--canvas);
+  --color-card: var(--card-surface);
+  --color-card-foreground: var(--ink);
+  --color-border: var(--hairline);
+
+  /* Typography */
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-instrument-serif);
+  --font-mono: var(--font-fragment-mono);
+
+  /* Typography Scale */
+  --text-caption: 12px;
+  --text-caption--line-height: 1;
+  --text-caption--letter-spacing: -0.06px;
+
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 1.43;
+  --text-body-sm--letter-spacing: -0.07px;
+
+  --text-body: 18px;
+  --text-body--line-height: 1.33;
+  --text-body--letter-spacing: -0.45px;
+
+  --text-subheading: 24px;
+  --text-subheading--line-height: 1.17;
+  --text-subheading--letter-spacing: -0.6px;
+
+  --text-heading-sm: 28px;
+  --text-heading-sm--line-height: 1.14;
+  --text-heading-sm--letter-spacing: -0.7px;
+
+  --text-heading: 48px;
+  --text-heading--line-height: 1.13;
+  --text-heading--letter-spacing: -1.2px;
+
+  --text-display: 128px;
+  --text-display--line-height: 1;
+  --text-display--letter-spacing: -6.4px;
+
+  /* Spacing */
+  --spacing-8: 8px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --spacing-96: 96px;
+  --spacing-128: 128px;
+  --spacing-192: 192px;
+
+  /* Radii */
+  --radius-buttons: 16px;
+  --radius-cards: 24px;
+  --radius-nav: 24px;
+  --radius-images: 24px;
+  --radius-pills: 9999px;
+
+  /* Overwrite default radius for components that use rounded-md, etc. */
+  --radius-sm: 16px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 24px;
+  
+  /* Shadows */
+  --shadow-sm: var(--shadow-subframe);
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  /* Subframe Light Palette */
+  --canvas: #fafafa;
+  --hairline: #e5e7eb;
+  --card-surface: #ededed;
+  --divider: #dadada;
+  --graphite: #242424;
+  --ink: #171717;
+  --pencil: #5c5c5c;
+  --faint: #a3a3a3;
+  
+  --shadow-subframe: rgba(255, 255, 255, 0.25) 0px 4px 4px -2px inset, rgba(0, 0, 0, 0.25) 0px -4px 4px -2px inset, rgba(255, 255, 255, 0.1) -2px 0px 2px -2px inset, rgba(255, 255, 255, 0.1) -2px 0px 2px -2px inset;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* Subframe Dark Palette (Inverted) */
+  --canvas: #111111;
+  --hairline: #2b2b2b;
+  --card-surface: #1a1a1a;
+  --divider: #333333;
+  --graphite: #ededed;
+  --ink: #fafafa;
+  --pencil: #a3a3a3;
+  --faint: #5c5c5c;
+  
+  --shadow-subframe: rgba(255, 255, 255, 0.1) 0px 4px 4px -2px inset, rgba(0, 0, 0, 0.5) 0px -4px 4px -2px inset, rgba(255, 255, 255, 0.05) -2px 0px 2px -2px inset, rgba(255, 255, 255, 0.05) -2px 0px 2px -2px inset;
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    box-sizing: border-box;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-canvas text-ink;
+    /* Apply Inter minimum weight 500 per DESIGN.md */
+    font-weight: 500; 
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-ink font-bold;
   }
 }
 
 @layer components {
   .form-label {
-    @apply block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1.5;
+    @apply block text-sm font-semibold text-ink mb-1.5;
   }
   .form-input {
-    @apply w-full px-4 py-2.5 bg-neutral-100/50 dark:bg-neutral-900/50 border border-neutral-200/50 dark:border-neutral-800/50 rounded-xl text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-900/10 dark:focus:ring-white/10 focus:border-neutral-900 dark:focus:border-white transition-all duration-200 placeholder:text-neutral-400 dark:placeholder:text-neutral-600 text-sm shadow-sm shadow-black/5 disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply w-full px-4 py-2.5 bg-canvas border border-hairline rounded-buttons text-ink focus:outline-none focus:border-ink transition-all duration-200 placeholder:text-faint text-body-sm shadow-none disabled:opacity-50 disabled:cursor-not-allowed;
   }
   .form-error {
-    @apply mt-1 text-xs text-red-500 dark:text-red-400 font-medium;
+    @apply mt-1 text-xs text-pencil font-medium;
+  }
+  
+  /* Subframe specific components */
+  .btn-primary {
+    @apply bg-graphite text-canvas rounded-buttons px-[20px] py-[8px] text-[14px] font-medium shadow-sm transition-transform active:scale-95 flex items-center justify-center gap-2 border-none;
+  }
+  
+  .btn-ghost {
+    @apply bg-transparent text-ink border border-hairline rounded-buttons px-[20px] py-[8px] text-[14px] font-medium transition-colors hover:bg-card-surface active:scale-95 flex items-center justify-center gap-2;
+  }
+  
+  .card-container {
+    @apply bg-card-surface rounded-cards p-24 shadow-none border-none;
+  }
+  
+  .pill-nav-container {
+    @apply bg-graphite rounded-pills p-1 flex items-center;
+  }
+  
+  .pill-nav-item {
+    @apply text-canvas px-4 py-2 rounded-pills text-sm font-medium transition-colors;
+  }
+  .pill-nav-item[data-active="true"] {
+    @apply bg-ink text-canvas;
+  }
+  .pill-nav-item:not([data-active="true"]):hover {
+    @apply text-faint;
+  }
+  
+  /* Typography helpers */
+  .text-editorial {
+    @apply font-serif text-[1.5em] tracking-[-0.025em] font-normal leading-none -ml-[0.05em];
   }
 }
 
-/* Hide default cursor for custom cursor */
+/* Custom cursor */
 * {
   cursor: none !important;
 }
@@ -144,12 +183,7 @@
   }
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.3; }
-}
-
-/* Minimal gray scrollbar */
+/* Minimal scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -160,10 +194,9 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #9ca3af;
-  border-radius: 3px;
+  @apply bg-faint rounded-pills;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6b7280;
+  @apply bg-pencil;
 }

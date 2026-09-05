@@ -17,87 +17,58 @@ interface HeroProps {
 }
 
 export default function Hero({ skills = [] }: HeroProps) {
-  // Looping tagline
+  // Looping typewriter for the editorial accent phrase
   const [tagText] = useTypewriter({
     words: HeroWords,
     loop: true,
-    typeSpeed: 80,
-    deleteSpeed: 40,
-    delaySpeed: 1500,
+    typeSpeed: 75,
+    deleteSpeed: 35,
+    delaySpeed: 1600,
   });
 
-  // Parent container variants (for main content)
+  // Container stagger
   const container: Variants = {
     hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.18 },
-    },
+    show: { opacity: 1, transition: { staggerChildren: 0.16 } },
   };
 
-  // Generic item variants used for heading, image, paragraph
+  // Fade-up for each child
   const item: Variants = {
-    hidden: { y: 18, opacity: 0 },
-    show: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
+    hidden: { y: 20, opacity: 0 },
+    show:  { y: 0, opacity: 1, transition: { duration: 0.55, ease: "easeOut" } },
   };
 
-  // Variants for category containers (fade up)
+  // Skill category stagger
   const categoryVariants: Variants = {
-    hidden: { y: 15, opacity: 0 },
-    show: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
+    hidden: { y: 12, opacity: 0 },
+    show:  { y: 0, opacity: 1, transition: { duration: 0.45, ease: "easeOut" } },
   };
 
-  // Skill item variants (used inside each category)
+  // Skill pill fade-scale
   const skillItem: Variants = {
-    hidden: { opacity: 0, y: 8, scale: 0.95 },
-    show: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { duration: 0.45, ease: "easeOut" },
+    hidden: { opacity: 0, y: 6, scale: 0.96 },
+    show:  {
+      opacity: 1, y: 0, scale: 1,
+      transition: { duration: 0.4, ease: "easeOut" },
     },
   };
 
-  // --- cycling highlight state ---
+  // Cycling active-skill state
   const skillsContainerRef = useRef<HTMLDivElement | null>(null);
   const skillRefs = useRef<Array<HTMLDivElement | null>>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const cycleIntervalMs = 1200;
 
-  // Cycle through skills automatically
   useEffect(() => {
     if (paused || skills.length <= 1) return;
-    const id = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % skills.length);
-    }, cycleIntervalMs);
+    const id = setInterval(
+      () => setActiveIndex((prev) => (prev + 1) % skills.length),
+      1200
+    );
     return () => clearInterval(id);
-  }, [paused]);
+  }, [paused, skills.length]);
 
-  // Hover handlers
-  function handleSkillEnter(index: number) {
-    setPaused(true);
-    setActiveIndex(index);
-  }
-  function handleSkillLeave() {
-    setPaused(false);
-  }
-  function handleContainerEnter() {
-    setPaused(true);
-  }
-  function handleContainerLeave() {
-    setPaused(false);
-  }
-
-  // Group skills by category, preserving original indices for refs and active index
+  // Group skills by category preserving original indices
   const groupedSkills = useMemo(() => {
     const groups: { category: string; skills: { skill: DSkill; originalIndex: number }[] }[] = [];
     skills.forEach((skill, index) => {
@@ -112,115 +83,155 @@ export default function Hero({ skills = [] }: HeroProps) {
   }, [skills]);
 
   return (
-    <section
-      className="min-h-[90vh] pb-12 flex flex-col justify-center items-center text-center px-4
-                 bg-gradient-to-br from-neutral-50 dark:from-neutral-900 rounded-xl relative z-10"
-    >
+    /* Subframe spec: canvas bg, centered, generous vertical rhythm */
+    <section className="min-h-[90vh] pb-16 flex flex-col justify-center items-center text-center px-4 bg-canvas relative z-10">
+
+      {/* ── Main content stack ── */}
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="max-w-2xl pt-3"
+        className="max-w-2xl w-full pt-4"
       >
-        {/* Profile Image */}
+
+        {/* Profile image — 24px radius frame, hairline border, no shadow */}
         <motion.div
           variants={item}
-          className="mx-auto mb-6 w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden
-                     border-2 border-neutral-300 dark:border-neutral-700 shadow-md
-                     hover:shadow-xl transition-shadow duration-300"
+          className="mx-auto mb-8 w-32 h-32 md:w-36 md:h-36 rounded-images overflow-hidden
+                     border border-hairline transition-all duration-300 hover:border-graphite"
         >
           <Image
             src={ProfileImagePath}
             alt="Sadiqul Islam Shakib"
-            width={160}
-            height={160}
+            width={144}
+            height={144}
             className="object-cover w-full h-full"
             priority
           />
         </motion.div>
 
-        {/* Animated Heading */}
+        {/*
+          Hero Display Headline — Subframe spec:
+          Inter 700, compressed tracking, ink black.
+          One Instrument Serif word for editorial punctuation.
+        */}
         <motion.h1
           variants={item}
-          className="text-5xl md:text-6xl font-extrabold leading-tight"
+          className="text-[48px] md:text-[64px] lg:text-[80px] font-bold leading-[1.08]
+                     tracking-[-2.4px] md:tracking-[-3.2px] lg:tracking-[-4px]
+                     text-ink mb-0"
         >
-          <span className="inline-block mr-2">Hi, I&apos;m</span>
-          <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            {userName} <Cursor cursorStyle="|" />
+          <span>Hi, I&apos;m </span>
+          {/*
+            The Instrument Serif word — "the signature move":
+            a single serif word larger than the surrounding sans type.
+          */}
+          <span className="font-serif font-normal tracking-[-0.025em] text-ink">
+            {userName}
+          </span>
+          <span className="text-faint">
+            <Cursor cursorStyle=" |" />
           </span>
         </motion.h1>
 
-        {/* Typing Tagline */}
+        {/*
+          Typewriter subhead — Inter 500, pencil color.
+          The changing word is rendered in the same Instrument Serif for
+          the editorial accent moment DESIGN.md describes.
+        */}
         <motion.p
           variants={item}
-          className="mt-6 text-lg md:text-xl text-neutral-600 dark:text-neutral-300"
+          className="mt-6 text-[18px] font-medium tracking-[-0.45px] leading-[1.33] text-pencil"
         >
-          I craft&nbsp;
-          <span className="font-semibold text-primary">
-            {tagText} <Cursor cursorStyle="_" />
+          I craft{" "}
+          <span className="font-serif font-normal text-[1.25em] tracking-[-0.025em] text-ink leading-none align-middle">
+            {tagText}
+          </span>
+          <span className="text-faint">
+            <Cursor cursorStyle="_" />
           </span>
         </motion.p>
 
-        {/* Call-to-Action */}
-        <motion.div variants={item} className="mt-10">
+        {/* ── CTAs — Dark Filled Button + Ghost Button ── */}
+        <motion.div variants={item} className="mt-10 flex flex-wrap items-center justify-center gap-3">
+          {/* Primary — Dark filled (Subframe: the loudest element on the page) */}
           <MotionLink
             href="/projects"
             aria-label="Explore projects"
-            className="inline-block rounded-2xl bg-primary px-8 py-3 text-white
-                       dark:text-neutral-600 text-base font-medium shadow-lg hover:shadow-xl
-                       transition-all"
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.96 }}
-            transition={{ type: "spring", stiffness: 300 }}
+            className="btn-primary"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 350, damping: 20 }}
           >
             Explore Projects →
+          </MotionLink>
+
+          {/* Secondary — Ghost button */}
+          <MotionLink
+            href="/about"
+            aria-label="About me"
+            className="btn-ghost"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 350, damping: 20 }}
+          >
+            About me
           </MotionLink>
         </motion.div>
       </motion.div>
 
-      {/* Skills Section - Grouped by Category */}
+      {/* ── Skills grouped by category ── */}
       <motion.div
         initial="hidden"
         animate="show"
         ref={skillsContainerRef}
-        onMouseEnter={handleContainerEnter}
-        onMouseLeave={handleContainerLeave}
-        className="mt-8 relative max-w-xl mx-auto space-y-6"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        className="mt-16 w-full max-w-2xl mx-auto space-y-8"
       >
         {groupedSkills.map((group) => (
           <motion.div
             key={group.category}
             variants={categoryVariants}
-            className="space-y-2"
+            className="space-y-3"
           >
-            <h4 className="text-sm font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
+            {/* Category label — caption scale, faint, uppercase */}
+            <h4 className="text-[12px] font-semibold text-faint uppercase tracking-[0.08em]">
               {group.category}
             </h4>
-            <div className="flex flex-wrap justify-center gap-3">
+
+            <div className="flex flex-wrap justify-center gap-2">
               {group.skills.map(({ skill, originalIndex }) => {
                 const isActive = originalIndex === activeIndex;
-
                 return (
                   <motion.div
                     key={skill.id}
                     variants={skillItem}
-                    ref={(el) => {
-                      skillRefs.current[originalIndex] = el;
-                    }}
-                    onMouseEnter={() => handleSkillEnter(originalIndex)}
-                    onMouseLeave={handleSkillLeave}
-                    animate={isActive ? { scale: 1.08, y: -6 } : { scale: 1, y: 0 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className={`flex items-center gap-2 px-3 py-2 bg-neutral-100 dark:bg-neutral-800
-                                rounded-lg border transition-colors duration-300 relative z-10
-                                ${isActive ? "border-primary dark:border-primary shadow-lg" : "border-neutral-200 dark:border-neutral-700"}`}
+                    ref={(el) => { skillRefs.current[originalIndex] = el; }}
+                    onMouseEnter={() => { setPaused(true); setActiveIndex(originalIndex); }}
+                    onMouseLeave={() => setPaused(false)}
+                    animate={isActive ? { scale: 1.06, y: -4 } : { scale: 1, y: 0 }}
+                    transition={{ type: "spring", stiffness: 320, damping: 22 }}
+                    /*
+                      Subframe skill pill:
+                      card-surface bg, hairline border, 16px radius (buttons tier).
+                      Active state → ink border + slight graphite tint.
+                    */
+                    className={`flex items-center gap-2 px-3 py-2 rounded-buttons
+                                transition-colors duration-200 relative z-10
+                                ${isActive
+                                  ? "bg-graphite border border-graphite shadow-sm"
+                                  : "bg-card-surface border border-hairline hover:border-divider"
+                                }`}
                   >
-                    <DynamicIcon 
-                      iconName={skill.iconName} 
-                      platform={skill.iconPlatform} 
-                      className={`w-4 h-4 ${isActive ? "text-primary" : "text-primary"}`} 
+                    <DynamicIcon
+                      iconName={skill.iconName}
+                      platform={skill.iconPlatform}
+                      className={`w-4 h-4 ${isActive ? "text-canvas" : "text-pencil"}`}
                     />
-                    <span className={`text-sm font-medium ${isActive ? "text-neutral-900 dark:text-neutral-100" : "text-neutral-700 dark:text-neutral-300"}`}>
+                    <span className={`text-[13px] font-medium tracking-[-0.06px] ${
+                      isActive ? "text-canvas" : "text-ink"
+                    }`}>
                       {skill.name}
                     </span>
                   </motion.div>
@@ -233,3 +244,4 @@ export default function Hero({ skills = [] }: HeroProps) {
     </section>
   );
 }
+

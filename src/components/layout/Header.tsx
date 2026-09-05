@@ -16,9 +16,6 @@ interface HeaderProps {
 
 const getResumeLink = (url?: string | null) => {
     if (!url) return '#';
-    // Cloudinary 'raw' resource URLs force a download via Content-Disposition header.
-    // They also don't include a .pdf extension in the URL (e.g. "file_iopykt").
-    // Route all raw Cloudinary uploads through Google Docs Viewer to show inline.
     if (url.includes('/raw/upload/')) {
         return `https://docs.google.com/viewer?url=${encodeURIComponent(url)}`;
     }
@@ -48,67 +45,96 @@ export default function Header({ resumeUrl, userName: _userName }: HeaderProps) 
             initial={{ y: -60, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="sticky top-0 z-50 w-full backdrop-blur-md bg-white/80 dark:bg-black/70 border-b border-neutral-200 dark:border-neutral-700"
+            /* Subframe spec: "no background container — the nav floats on canvas"
+               A hairline border-bottom defines the separation */
+            className="sticky top-0 z-50 w-full bg-canvas/90 backdrop-blur-sm border-b border-hairline"
         >
-            <div className="container mx-auto flex items-center justify-between px-6 py-4">
+            <div className="container mx-auto max-w-page flex items-center justify-between px-6 py-4">
 
-                {/* Logo / Typewriter */}
-                <Link href="/" className="text-2xl font-extrabold text-primary flex items-center">
+                {/* Logo / Typewriter — Inter extrabold, ink black */}
+                <Link
+                    href="/"
+                    className="text-[18px] font-bold text-ink tracking-[-0.45px] flex items-center select-none"
+                >
                     {nameText}
                     <Cursor cursorStyle="|" />
                 </Link>
 
                 {/* Desktop Nav */}
-                <nav className="hidden md:flex items-center space-x-6">
-                    {navItems.map(({ label, href }) => {
-                        const isActive = pathname === href;
-
-                        return (
-                            <Link key={href} href={href} className="relative group text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                                <motion.span whileHover={{ y: -2, transition: { type: 'spring', stiffness: 300 } }}>
+                <nav className="hidden md:flex items-center gap-8">
+                    {/* Centered nav links — Inter 500 14px */}
+                    <div className="flex items-center gap-8">
+                        {navItems.map(({ label, href }) => {
+                            const isActive = pathname === href;
+                            return (
+                                <Link
+                                    key={href}
+                                    href={href}
+                                    className={`relative text-[14px] font-medium tracking-[-0.07px] transition-colors duration-200
+                                        ${isActive ? 'text-ink' : 'text-faint hover:text-ink'}`}
+                                >
                                     {label}
-                                </motion.span>
-                                <span
-                                    className={`absolute bottom-0 left-0 right-0 h-0.5 bg-primary
-                                                transition-transform duration-300 ease-in-out
-                                                ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'} origin-left`}
-                                />
-                            </Link>
-                        )
-                    })}
+                                    {/* Active underline — hairline */}
+                                    {isActive && (
+                                        <motion.span
+                                            layoutId="nav-underline"
+                                            className="absolute -bottom-0.5 left-0 right-0 h-px bg-ink"
+                                        />
+                                    )}
+                                </Link>
+                            );
+                        })}
+                    </div>
 
+                    {/* Resume — Dark Filled Button (Subframe spec) */}
                     <motion.a
                         href={getResumeLink(resumeUrl)}
-                        target={resumeUrl ? "_blank" : undefined}
+                        target={resumeUrl ? '_blank' : undefined}
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-primary text-white rounded-full shadow hover:shadow-lg hover:bg-primary/90 transition dark:bg-gray-500 dark:text-gray-100 dark:hover:bg-primary/35"
-                        whileHover={{ y: -2 }}
-                        whileTap={{ scale: 0.95 }}
+                        className="btn-primary gap-2"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.97 }}
                     >
-                        <Download className="w-4 h-4" /> Resume
+                        <Download className="w-3.5 h-3.5" />
+                        <span>Resume</span>
                     </motion.a>
 
+                    {/* Theme toggle — ink icon on canvas */}
                     {mounted && (
                         <motion.button
                             onClick={toggleTheme}
                             aria-label="Toggle dark mode"
-                            className="p-2 rounded-full text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-800 transition"
+                            className="p-2 rounded-buttons text-pencil hover:text-ink hover:bg-card-surface border border-transparent hover:border-hairline transition-all duration-200"
                             whileTap={{ scale: 0.85 }}
                         >
-                            {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                            {theme === 'dark'
+                                ? <Sun className="w-4 h-4" />
+                                : <Moon className="w-4 h-4" />}
                         </motion.button>
                     )}
                 </nav>
 
-                {/* Mobile Hamburger */}
-                <div className="md:hidden">
+                {/* Mobile: theme toggle + hamburger */}
+                <div className="md:hidden flex items-center gap-3">
+                    {mounted && (
+                        <motion.button
+                            onClick={toggleTheme}
+                            aria-label="Toggle dark mode"
+                            className="p-2 rounded-buttons text-pencil hover:text-ink hover:bg-card-surface transition-all duration-200"
+                            whileTap={{ scale: 0.85 }}
+                        >
+                            {theme === 'dark'
+                                ? <Sun className="w-4 h-4" />
+                                : <Moon className="w-4 h-4" />}
+                        </motion.button>
+                    )}
                     <motion.button
                         onClick={toggleMenu}
                         aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-                        className="p-2 rounded text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-800 transition"
+                        className="p-2 rounded-buttons text-pencil hover:text-ink hover:bg-card-surface transition-all duration-200"
                         whileTap={{ scale: 0.85 }}
                     >
-                        {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                        {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                     </motion.button>
                 </div>
             </div>
@@ -117,48 +143,39 @@ export default function Header({ resumeUrl, userName: _userName }: HeaderProps) 
             <AnimatePresence>
                 {menuOpen && (
                     <motion.nav
-                        initial={{ opacity: 0, y: -20 }}
+                        initial={{ opacity: 0, y: -12 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        className="md:hidden bg-white dark:bg-black border-b border-neutral-200 dark:border-neutral-700"
+                        exit={{ opacity: 0, y: -12 }}
+                        transition={{ duration: 0.2, ease: 'easeOut' }}
+                        className="md:hidden bg-canvas border-b border-hairline"
                     >
-                        <ul className="flex flex-col space-y-4 px-6 py-4">
-                            {navItems.map(({ label, href }) => (
-                                <li key={href}>
-                                    <Link
-                                        href={href}
-                                        onClick={() => setMenuOpen(false)}
-                                        className="block text-lg font-medium text-neutral-700 dark:text-neutral-300"
-                                    >
-                                        {label}
-                                    </Link>
-                                </li>
-                            ))}
-                            <li className="flex justify-center">
+                        <ul className="flex flex-col px-6 py-6 gap-6">
+                            {navItems.map(({ label, href }) => {
+                                const isActive = pathname === href;
+                                return (
+                                    <li key={href}>
+                                        <Link
+                                            href={href}
+                                            onClick={() => setMenuOpen(false)}
+                                            className={`block text-[18px] font-medium tracking-[-0.45px] transition-colors duration-200
+                                                ${isActive ? 'text-ink' : 'text-pencil hover:text-ink'}`}
+                                        >
+                                            {label}
+                                        </Link>
+                                    </li>
+                                );
+                            })}
+                            <li>
                                 <Link
                                     href={getResumeLink(resumeUrl)}
-                                    target={resumeUrl ? "_blank" : undefined}
+                                    target={resumeUrl ? '_blank' : undefined}
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-primary text-white 
-                                    rounded-full shadow hover:shadow-lg hover:bg-primary/90 transition 
-                                    dark:bg-gray-500 dark:text-gray-100 dark:hover:bg-primary/35 mx-auto"
+                                    className="btn-primary w-full"
                                     onClick={() => setMenuOpen(false)}
                                 >
-                                    <Download className="w-4 h-4" /> Resume
+                                    <Download className="w-3.5 h-3.5" />
+                                    Resume
                                 </Link>
-                            </li>
-                            <li>
-                                {mounted && (
-                                    <button
-                                        onClick={() => {
-                                            toggleTheme();
-                                            setMenuOpen(false);
-                                        }}
-                                        className="flex items-center gap-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:text-primary dark:hover:text-primary transition"
-                                    >
-                                        {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-                                    </button>
-                                )}
                             </li>
                         </ul>
                     </motion.nav>
@@ -167,3 +184,4 @@ export default function Header({ resumeUrl, userName: _userName }: HeaderProps) 
         </motion.header>
     );
 }
+
